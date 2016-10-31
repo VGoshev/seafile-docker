@@ -117,14 +117,15 @@ if [ ! -f $VERSION_FILE ]; then
 	if [ ! -f 'seafile-server/runtime/seahub.conf' ]; then
 		mkdir "${HOME}seafile-server/runtime"
 		echo "import os
-		daemon = True
-		workers = 3
+daemon = True
+workers = 3
 
-		# Logging
-		runtime_dir = os.path.dirname(__file__)
-		pidfile = os.path.join(runtime_dir, 'seahub.pid')
-		errorlog = os.path.join(runtime_dir, 'error.log')
-		accesslog = os.path.join(runtime_dir, 'access.log')" > "${HOME}seafile-server/runtime/seahub.conf"
+# Logging
+runtime_dir = os.path.dirname(__file__)
+pidfile = os.path.join(runtime_dir, 'seahub.pid')
+errorlog = os.path.join(runtime_dir, 'error.log')
+accesslog = os.path.join(runtime_dir, 'access.log')" > "${HOME}seafile-server/runtime/seahub.conf"
+
 		echo '* gunicorn configured successfully'
 	fi
 
