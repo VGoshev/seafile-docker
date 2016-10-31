@@ -1,5 +1,5 @@
 #!/bin/sh
-set -x
+#set -x
 #Seafile initialisation and start script, root user part. 
 #This script will fix seafile user home directory permissions 
 #  if needed and exec docker-run script

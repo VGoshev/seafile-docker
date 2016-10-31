@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build -t sunx/seafile ./Dockerfile/
+docker build -t sunx/seafile ./docker/
