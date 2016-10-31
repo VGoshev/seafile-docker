@@ -21,6 +21,7 @@ RUN sh /tmp/build.sh "$SEAFILE_VERSION" "$SEAFILE_SERVER_DIR" && rm /tmp/build.s
 
 # Container initialization script
 COPY docker-run.sh /bin/docker-run
+COPY docker-run-root.sh /bin/docker-run-root
 
 EXPOSE 8000 8082
 VOLUME $SEAFILE_SERVER_DIR
@@ -28,4 +29,5 @@ VOLUME $SEAFILE_SERVER_DIR
 WORKDIR $SEAFILE_SERVER_DIR
 #USER seafile
 #CMD ["/bin/docker-run"]
-CMD su -l -c "/bin/docker-run" seafile ; /bin/sh
+#CMD su -l -c "/bin/docker-run" seafile ; /bin/sh
+CMD /bin/docker-run-root ; /bin/sh

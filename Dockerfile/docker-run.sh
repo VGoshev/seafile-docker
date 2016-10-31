@@ -47,12 +47,16 @@ else
     [ ! -d 'seafile-server/seahub' ] && cp -rf /usr/local/share/seahub ${HOME}seafile-server/seahub
 fi
 
+#Seafile-server related enviroment variables
 CCNET_CONF_DIR=${HOME}ccnet
 export CCNET_CONF_DIR
 SEAFILE_CONF_DIR=${HOME}seafile-data
 export SEAFILE_CONF_DIR
 SEAFILE_CENTRAL_CONF_DIR=${HOME}conf
 export SEAFILE_CENTRAL_CONF_DIR
+
+#We do not want to reset admin password. probably
+RESET_ADMIN=0
 
 # If there is $VERSION_FILE already, then it isn't first run of this script, 
 #  do not need to configure seafile
@@ -128,15 +132,8 @@ accesslog = os.path.join(runtime_dir, 'access.log')" > "${HOME}seafile-server/ru
     echo -n "${SEAFILE_VERSION}" > $VERSION_FILE
     echo "Configuration compleated!"
 	
-	# Create admin user only in interactive mode. Just becouse.
-	if [ $INTERACTIVE -eq 1 ]; then
-		echo "Creating administrator user:"
-		python seafile-server/seahub/manage.py createsuperuser
-	else
-		echo "To create administrator user, execute"
-		echo "  python seafile-server/seahub/manage.py createsuperuser"
-		echo " in container."
-	fi
+		#Say that we want to create admin user after server start
+		RESET_ADMIN=1
 
 else #[ ! -f $VERSION_FILE ];
     # Need to check if we need to run upgrade scripts
@@ -210,6 +207,19 @@ fi
 
 echo "Starting seafile server..."
 seafile-admin start
+
+if [ $RESET_ADMIN -eq 1 ]; then
+	# Create admin user only in interactive mode. Just becouse.
+	if [ $INTERACTIVE -eq 1 ]; then
+		echo "Creating administrator user:"
+		python seafile-server/seahub/manage.py createsuperuser
+	else
+		echo "To create administrator user, execute"
+		echo "  python seafile-server/seahub/manage.py createsuperuser"
+		echo " in container."
+	fi
+	echo ""
+fi
 
 echo 'exec tail -f logs/*'
 #exec tail -f logs/*
