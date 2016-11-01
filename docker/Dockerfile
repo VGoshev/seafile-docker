@@ -10,7 +10,7 @@ MAINTAINER Vladimir Goshev
 #  See https://github.com/haiwen/seafile-server/releases 
 #  for latest avaliable version
 ENV SEAFILE_SERVER_DIR="/home/seafile/" \
-	SEAFILE_VERSION="6.0.5"
+	SEAFILE_VERSION="6.0.6"
 
 # All installation proccess is in build.sh
 # It is possible to do all work via RUN command(s)
