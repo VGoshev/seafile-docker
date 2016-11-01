@@ -4,6 +4,8 @@ Dockerfile and some helper scripts Seafile-server Docker image
 
 This image is based on latest [Alpine](https://hub.docker.com/_/alpine/) Docker image
 
+You can find Dockerfile and other usefull scripts for this image there: [Github](https://github.com/SunAngel/seafile-docker)
+
 Containers, based on this image should automatically configure 
  Seafile enviroment if there isn't any and upgrade it if 
  enviroment is from previous version of Seafile (by calling Seafile upgrade scripts).
