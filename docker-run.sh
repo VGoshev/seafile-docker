@@ -13,7 +13,7 @@ RESTART_POLCY="unless-stopped"
 EXTRA_ARGS="-d -ti"
 
 #You can change default values by adding them to config file ~/.docker-sunx-seafile
-[ -f ~/.docker-sunx-seafile ] && source ~/.docker-sunx-seafile
+[ -f ~/.docker-sunx-seafile ] && . ~/.docker-sunx-seafile
 
 [ ! -z "$CONTAINER_HOSTNAME" ] && CONTAINER_HOSTNAME="--hostname=$CONTAINER_HOSTNAME"
 [ ! -z "$CONTAINER_NAME" ]     && CONTAINER_NAME="--name=$CONTAINER_NAME"
