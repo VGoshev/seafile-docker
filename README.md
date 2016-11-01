@@ -9,10 +9,19 @@ But I would advise you to do data backups before upgrading image (in case of bug
 
 
 This image exposes 2 tcp ports:
-* 8000 - seahub port
-* 8082 - seafile port
+* 8000 - seafile port
+* 8082 - seahub port
 
-Also this image uses one volume with internal path /home/seafile
+Also this image uses one volume with internal path /home/seafile (you can change its location in in Dockerfile or with build argument, if you want to).
+
+In httpd-conf directory you can find [lighttpd](https://www.lighttpd.net/) web server config example. 
+[Nginx](https://manual.seafile.com/deploy/deploy_with_nginx.html) and 
+[Apache](https://manual.seafile.com/deploy/deploy_with_apache.html) 
+configurations you can find in official Seafile Server [Manual](https://manual.seafile.com/).
+
+I do not include any http server into image, because you, usually, have some http server running on your server and don't want to run any extra http-servers (because it will cost you some CPU time and Memory).
+But if I'll find any really tiny http-server with proxy support, I, probably, would add it to image.
+
 
 When you running container, you can pass several enviroment variables (with **--env** option of **docker run** command):
 * INTERACTIVE=<0|1> - if container should ask you about some configuration values (on first run) and about upgrades. Default: 1
@@ -32,4 +41,11 @@ Also at this moment seafile scripts like *seaf-fsck.sh* and *seaf-gc.sh* aren't 
 
 PS: Do backups of your data.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+TORT OR OTHERWISE, ARISING FROM, 
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+

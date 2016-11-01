@@ -1,0 +1,44 @@
+$HTTP["host"] =~ "(^|^www\.)seafile.domain.com$" {
+
+	accesslog.filename    = "/var/logs/lighttpd/seafile.domain.com.access.log"
+	dir-listing.activate  = "disable"
+
+	$HTTP["scheme"] == "https" { # In case of SSL, choose SSL certificates
+	    ssl.ca-file = var.ssldir + "seafile.domain.com.ca.pem"
+	    ssl.pemfile = var.ssldir + "seafile.domain.com.lighttpd.pem"
+	    ssl.cipher-list = var.ssl-cl
+	}
+  # I'll allow only HTTPS connections. Becouse Security, thats why.
+  $HTTP["scheme"] == "http" {
+		url.redirect = ( "^/(.*)$" => "https://seafile.domain.com/$1" )
+	}
+
+	url.rewrite-once = ( "^/$" => "/seafile",
+	    "^/api2/(.*)" => "/seafile/api2/$1",
+	    "^/accounts/(.*)" => "/seafile/accounts/$1",
+	    "^/seafhttp/(.*)$" => "/$1"
+	    )
+
+	alias.url += (
+  # Put path to seahub/media directory inside of your container volume
+		"/media" => "/home/docker/seafile/seafile-server/seahub/media"
+	)
+
+	$HTTP["url"] =~ "(^/seafile)" {
+	    proxy.server = ( "" =>
+		    ( ( 
+		       "host" => "127.0.0.1",
+		       "port" => 8000
+		      ) )
+		    )
+	}
+
+	$HTTP["url"] !~ "(^/seafile|^/media)" {
+		#url.rewrite-once = ( "^/seafhttp(.*)$" => "$1" )
+		proxy.server = ( "/" => ( "" => ( 
+			"host" => "127.0.0.1",
+			"port" => 8082
+		)))
+	}
+
+} # $HTTP["host"] =~ "(^|^www\.)seafile.domain.com$"
