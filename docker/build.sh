@@ -127,26 +127,17 @@ cd $WORK_DIR/ccnet-server-${SEAFILE_VERSION}-server/ && ./autogen.sh && \
 # Build and install Seafile-Server #
 # As a First step we need to patch #
 # seafile-controller topdir        #
+# And some scripts                 #
 ####################################
 cd $WORK_DIR/seafile-server-${SEAFILE_VERSION}-server/
-echo 'diff --git a/controller/seafile-controller.c.orig b/controller/seafile-controller.c
-index a394f19..4aecdeb 100644
---- a/controller/seafile-controller.c.orig
-+++ b/controller/seafile-controller.c
-@@ -601,6 +601,9 @@ seaf_controller_init (SeafileController *ctl,
-         return -1;
-     }
- 
-+    free(topdir);
-+    topdir = g_path_get_dirname (config_dir);
-+
-     if (!g_file_test (seafile_dir, G_FILE_TEST_IS_DIR)) {
-         seaf_warning ("invalid seafile_dir: %s\n", seafile_dir);
-         return -1;
-' | patch -p1
+patch -p1 < /tmp/seafile-server.patch
 ./autogen.sh && \
     ./configure --without-mysql --without-postgresql && make && make install
 
+#Copy some useful scripts to /usr/local/bin
+#mkdir -p /usr/local/bin
+cp scripts/seaf-fsck.sh /usr/local/bin/seafile-fsck
+cp scripts/seaf-gc.sh /usr/local/bin/seafile-gc
 # Also copy scripts to save them
 mkdir -p /usr/local/share/seafile/
 mv scripts /usr/local/share/seafile/
@@ -209,6 +200,7 @@ apk del --purge $BUILD_DEP
 rm -rf $WORK_DIR
 rm /var/cache/apk/*
 rm -rf /root/.cache
+rm -f /tmp/seafile-server.patch
 
 echo "unneded files were cleaned"
 

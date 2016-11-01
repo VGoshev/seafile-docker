@@ -1,18 +1,25 @@
-## Seafile Docker image
+# Seafile Docker image
 
 Dockerfile and some helper scripts Seafile-server Docker image
 
 This image is based on latest [Alpine](https://hub.docker.com/_/alpine/) Docker image
 
-Containers, based on this image should automatically configure Seafile enviroment if there isn't any and upgrade it if enviroment is from previous version of Seafile (by calling Seafile upgrade scripts).
-But I would advise you to do data backups before upgrading image (in case of bugs in upgrade logic of this image or Seafile itself).
+Containers, based on this image should automatically configure 
+ Seafile enviroment if there isn't any and upgrade it if 
+ enviroment is from previous version of Seafile (by calling Seafile upgrade scripts).
+But I would advise you to do data backups before upgrading image 
+ (to not loose your data in case of bugs in upgrade logic of this image or Seafile upgrde scripts).
 
+### Used ports and volume, http-server configuration
 
 This image exposes 2 tcp ports:
 * 8000 - seafile port
 * 8082 - seahub port
 
 Also this image uses one volume with internal path /home/seafile (you can change its location in in Dockerfile or with build argument, if you want to).
+
+For http-server configuration, as media directory location you should enter
+`<volume/path>/seafile-server/seahub/media`
 
 In httpd-conf directory you can find [lighttpd](https://www.lighttpd.net/) web server config example. 
 [Nginx](https://manual.seafile.com/deploy/deploy_with_nginx.html) and 
@@ -22,6 +29,7 @@ configurations you can find in official Seafile Server [Manual](https://manual.s
 I do not include any http server into image, because you, usually, have some http server running on your server and don't want to run any extra http-servers (because it will cost you some CPU time and Memory).
 But if I'll find any really tiny http-server with proxy support, I, probably, would add it to image.
 
+### Runing container
 
 When you running container, you can pass several enviroment variables (with **--env** option of **docker run** command):
 * INTERACTIVE=<0|1> - if container should ask you about some configuration values (on first run) and about upgrades. Default: 1
@@ -34,9 +42,22 @@ you can add empty file named **.no-update** to directory **/home/seafile** in yo
 
 Container will use user seafile on run, so if you need to do something with root access in container, you can use **docker exec -ti <container_name> /bin/sh** for it
 
+### Usefull commands in container
+
+When you're inside of container, in home directory of seafile user, you can use following useful commands:
+* seafile-fsck - check your libraries for errors (Originally seaf-fsck.sh is used for it)
+* seafile-gc - remove ald unused data from storage of your seafile libraries (Originally seaf-gc.sh is used for it)
+* seafile-admin start - start seafile and seahub daemons (if they were stopped)
+* seafile-admin stop - stop seafile and seahub daemons
+* seafile-admin reset-admin - reset seafile admin user and/or password
+* seafile-admin setup - setup ccnet, seafile and seahub services (if they wasn't configured automatically by some reason)
+* seafile-admin create-admin - create seafile admin user (if it wasn't created automatically by some reason)
+
+### Known issues
+
 At this time on first run (end every image upgrade) container copy seahub directory from /usr/local/share/seahub to /home/seafile/seafile-server/seahub, so it cost about 40Mb of space. In future this behaviour could be changed (or not, as long as external webserver need media directory from seahub to serve seafile properly).
 
-Also at this moment seafile scripts like *seaf-fsck.sh* and *seaf-gc.sh* aren't working properly, it will be fixed.
+Also at this moment most seafile scripts aren't working properly, but I do not think that they are to usefull for this image.
 
 
 PS: Do backups of your data.
