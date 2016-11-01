@@ -12,22 +12,21 @@ MAINTAINER Vladimir Goshev
 ENV SEAFILE_SERVER_DIR="/home/seafile/" \
 	SEAFILE_VERSION="6.0.5"
 
-# All instalation proccess is in build.sh
-# It is possible to do all work via RUN command
+# All installation proccess is in build.sh
+# It is possible to do all work via RUN command(s)
 # But it looks much better with all work in script
 COPY build.sh /tmp/build.sh
-# Execute our build script and delete it because it isn't needed anymore/
+# Execute our build script and delete it because we won't need it anymore
 RUN sh /tmp/build.sh "$SEAFILE_VERSION" "$SEAFILE_SERVER_DIR" && rm /tmp/build.sh
 
-# Container initialization script
+# Container initialization scripts ()
 COPY docker-run.sh /bin/docker-run
 COPY docker-run-root.sh /bin/docker-run-root
 
 EXPOSE 8000 8082
 VOLUME $SEAFILE_SERVER_DIR
 
-WORKDIR $SEAFILE_SERVER_DIR
-#USER seafile
-#CMD ["/bin/docker-run"]
-#CMD su -l -c "/bin/docker-run" seafile ; /bin/sh
-CMD /bin/docker-run-root ; /bin/sh
+# Container will run some preparations with root access (fixing permissions, for example)
+#   and then execute /bin/docker-run with seafile user access to configure (if needed) and run
+#		Seafile server
+CMD ["/bin/docker-run-root"]
