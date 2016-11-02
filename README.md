@@ -81,6 +81,8 @@ you can add empty file named `.no-update` to directory `/home/seafile` in your c
 
 * At this moment most seafile scripts (which are located in `/usr/local/share/seafile/scripts` directory) aren't working properly, but I do not think that they are to usefull for this image (scripts `seaf-fsck.sh` and `seaf-gc.sh` are working correctly and also avaliable as `/usr/local/bin/seafile-fsck` and `/usr/local/bin/seafile-gc`).
 
+* This imagge now support only sqlite-based Seafile server installation. If you want to run Seafile server witn MySQL\MariaDB, then you can say to me about it and I'll add such option.
+
 ## License
 
 This Dockerfile and scripts are released under [MIT License](https://github.com/SunAngel/seafile-docker/blob/master/LICENSE).
