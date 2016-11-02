@@ -1,5 +1,5 @@
 # Seafile Server Docker image
-[Seafile](http://seafile.com/) server Docker image based on [Alpine Linux](https://hub.docker.com/_/alpine/) Docker image.
+[Seafile](http://seafile.com/) server Docker image based on [Alpine Linux](https://hub.docker.com/_/alpine/).
 
 Also in my [Github repository](https://github.com/SunAngel/seafile-docker) you can find some usefull scripts for helping running containers.
 
@@ -11,12 +11,13 @@ Also in my [Github repository](https://github.com/SunAngel/seafile-docker) you c
 ## Quickstart
 
 To run container you can use following command:
-`docker run \
-  -v /home/docker/seafile:/home/seafile \
-  -p 127.0.0.1:8000:80000 \
-  -p 127.0.0.1:8082:8082 \ 
+```bash
+docker run \  
+  -v /home/docker/seafile:/home/seafile \  
+  -p 127.0.0.1:8000:80000 \  
+  -p 127.0.0.1:8082:8082 \  
   -ti sunx/seafile`
-
+```
 Containers, based on this image will automatically configure 
  Seafile enviroment if there isn't any. If Seafile enviroment is from previous version of Seafile, container will automatically upgrade it to latest version (by calling Seafile upgrade scripts).
  
@@ -61,13 +62,13 @@ When you running container, you can pass several enviroment variables (with **--
 ## Usefull commands in container
 
 When you're inside of container, in home directory of seafile user, you can use following useful commands:
-* seafile-fsck - check your libraries for errors (Originally seaf-fsck.sh is used for it)
-* seafile-gc - remove ald unused data from storage of your seafile libraries (Originally seaf-gc.sh is used for it)
-* seafile-admin start - start seafile and seahub daemons (if they were stopped)
-* seafile-admin stop - stop seafile and seahub daemons
-* seafile-admin reset-admin - reset seafile admin user and/or password
-* seafile-admin setup - setup ccnet, seafile and seahub services (if they wasn't configured automatically by some reason)
-* seafile-admin create-admin - create seafile admin user (if it wasn't created automatically by some reason)
+* `seafile-fsck` - check your libraries for errors (Originally seaf-fsck.sh is used for it)
+* `seafile-gc` - remove ald unused data from storage of your seafile libraries (Originally seaf-gc.sh is used for it)
+* `seafile-admin start` - start seafile and seahub daemons (if they were stopped)
+* `seafile-admin stop` - stop seafile and seahub daemons
+* `seafile-admin reset-admin` - reset seafile admin user and/or password
+* `seafile-admin setup` - setup ccnet, seafile and seahub services (if they wasn't configured automatically by some reason)
+* `seafile-admin create-admin` - create seafile admin user (if it wasn't created automatically by some reason)
 
 ## Tips&amp;Tricks and Known issues
 
