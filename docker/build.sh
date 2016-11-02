@@ -24,7 +24,7 @@ fi
 ##################################
 # Where we should install Seahub #
 ##################################
-SEAFILE_SERVER_DIR="/home/seafile/"
+SEAFILE_SERVER_DIR="/home/seafile"
 if [ "x$2" != "x" ]; then
     SEAFILE_SERVER_DIR=$2
 fi
@@ -49,8 +49,9 @@ cd $WORK_DIR
 ################################
 # UID and GID for seafile user #
 ################################
-uUID=2016
-uGID=2016
+[ -z "$uUID" ] && uUID=2016
+[ -z "$uGID" ] && uGID=2016
+
 
 ################################
 # Install some needed packages #
@@ -108,8 +109,9 @@ wget https://github.com/haiwen/seahub/archive/v${SEAFILE_VERSION}-server.tar.gz 
 # Seahub is python application,     #
 #  just copy it in proper directory #
 #####################################
-#mv $WORK_DIR/seahub-${SEAFILE_VERSION}-server/ ${SEAFILE_SERVER_DIR}/seafile-server/seahub
-mv $WORK_DIR/seahub-${SEAFILE_VERSION}-server/ /usr/local/share/seahub
+#mv $WORK_DIR/seahub-${SEAFILE_VERSION}-server/ /usr/local/share/seahub
+mkdir -p /usr/local/share/seafile
+tar czf /usr/local/share/seafile/seahub.tgz -C $WORK_DIR/seahub-${SEAFILE_VERSION}-server/ ./
 
 ###############################
 # Build and install libSeaRPC #
@@ -139,7 +141,7 @@ patch -p1 < /tmp/seafile-server.patch
 cp scripts/seaf-fsck.sh /usr/local/bin/seafile-fsck
 cp scripts/seaf-gc.sh /usr/local/bin/seafile-gc
 # Also copy scripts to save them
-mkdir -p /usr/local/share/seafile/
+#mkdir -p /usr/local/share/seafile/
 mv scripts /usr/local/share/seafile/
 
 ldconfig
@@ -154,36 +156,12 @@ echo "Seafile-Server has been built successfully!"
 # Like add seafile user and  #
 #  create his home directory #
 ##############################
-echo "seafile:x:${uUID}:${uGID}:Seafile Server:${SEAFILE_SERVER_DIR}:/bin/sh" >> /etc/passwd
-echo "seafile:x:${uGID}:" >> /etc/group
-echo 'seafile:!::0:::::' >> /etc/shadow
 
-mkdir -p "${SEAFILE_SERVER_DIR}"
-chown seafile:seafile "${SEAFILE_SERVER_DIR}"
+addgroup -g "$uGID" seafile
+adduser -D -s /bin/sh -g "Seafile Server" -G seafile -h "$SEAFILE_SERVER_DIR" -u "$uUID" seafile
 
 # Create seafile-server dir 
 su - -c "mkdir ${SEAFILE_SERVER_DIR}/seafile-server" seafile
-
-
-# Only for those who want to has problems, lol
-# Because there are some issues of using seahub via symlink
-if [ $EDGE_V -eq 1 ]; then
-    # Some seahub configuration.
-    #mv /usr/local/share/seahub/media/avatars /usr/local/share/seahub/media/avatars.def
-    #ln -s "${SEAFILE_SERVER_DIR}/seahub-data" /usr/local/share/seahub/media/avatars
-
-    # I'll chown it instead
-    chown -R seafile:seafile /usr/local/share/seahub
-
-    # Little hack to be able to initialize seahub by user (and keep seahub.db on volume)
-    ln -s "${SEAFILE_SERVER_DIR}/seahub.db" /usr/local/seahub.db
-
-    #Well... i'm not sure if I need to generate *.pyc files for seahub
-    # during image building or on first run of container, but anyway, 
-    #  they aren't take much space
-    #cd /usr/local/share/seahub && python -m compileall .
-    # No need as long as I've chowned seahub directory
-fi
 
 # Store seafile version and if tis is edge image
 mkdir -p /var/lib/seafile

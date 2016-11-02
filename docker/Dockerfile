@@ -1,15 +1,18 @@
 FROM alpine
-MAINTAINER Vladimir Goshev
+MAINTAINER Vladimir Goshev <sunx@sunx.name>
 
 # SEAFILE_SERVER_DIR:
 # Where we will store seafile-server settings
 #  seafile user home directory.
+# Default: /home/seafile
 #
 # SEAFILE_VERSION:
 # Seafile-Server version do townload and install
 #  See https://github.com/haiwen/seafile-server/releases 
 #  for latest avaliable version
-ENV SEAFILE_SERVER_DIR="/home/seafile/" \
+# uUID - set UID of seafile user, default: 2016
+# uGID - set GID of seafile user, default: 2016
+ENV SEAFILE_SERVER_DIR="/home/seafile" \
 	SEAFILE_VERSION="6.0.6"
 
 # All installation proccess is in build.sh
