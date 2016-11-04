@@ -33,10 +33,7 @@ fi
 #Just in case
 cd $HOME
 
-if [ ! -d 'seafile-server' ]; then
-	echo "There is no seafile-server directory inside of user home ($HOME), probably bad user"
-	exit 2
-fi
+[ ! -d 'seafile-server' ] && mkdir seafile-server
 
 
 # Fix seahub dir if needed
