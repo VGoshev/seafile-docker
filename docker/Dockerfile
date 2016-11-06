@@ -21,7 +21,7 @@ ENV SEAFILE_SERVER_DIR="/home/seafile" \
 COPY build.sh /tmp/build.sh
 COPY seafile-server.patch /tmp/seafile-server.patch
 # Execute our build script and delete it because we won't need it anymore
-RUN sh /tmp/build.sh "$SEAFILE_VERSION" "$SEAFILE_SERVER_DIR" && rm /tmp/build.sh
+RUN /tmp/build.sh "$SEAFILE_VERSION" "$SEAFILE_SERVER_DIR" && rm /tmp/build.sh
 
 # Container initialization scripts ()
 COPY docker-run.sh /bin/docker-run

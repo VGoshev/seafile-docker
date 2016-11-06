@@ -62,7 +62,8 @@ apk update
 # bash is needed for upgrade scripts      #
 ###########################################
 apk add bash openssl python py-setuptools py-imaging sqlite \
-    libevent util-linux glib jansson libarchive
+    libevent util-linux glib jansson libarchive \
+		mariadb-client-libs postgresql-libs
 
 #################################################
 # Add build-deps for Seafile-Server             #
@@ -72,7 +73,7 @@ apk add bash openssl python py-setuptools py-imaging sqlite \
 BUILD_DEP="curl-dev libevent-dev glib-dev util-linux-dev intltool \
     sqlite-dev libarchive-dev libtool jansson-dev vala fuse-dev \
     cmake make musl-dev gcc g++ automake autoconf bsd-compat-headers \
-    python-dev file"
+    python-dev file mariadb-dev mariadb-dev"
 apk add $BUILD_DEP
 #mariadb-dev - We'll make seafile without MySQL support
 
@@ -122,8 +123,10 @@ export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 ###########################
 # Build and install CCNET #
 ###########################
-cd $WORK_DIR/ccnet-server-${SEAFILE_VERSION}-server/ && ./autogen.sh && \
-    ./configure --without-mysql --without-postgresql && make && make install
+cd $WORK_DIR/ccnet-server-${SEAFILE_VERSION}-server/ && \
+	./autogen.sh && \
+    ./configure --with-mysql --with-postgresql && \
+		make && make install
 
 ####################################
 # Build and install Seafile-Server #
@@ -134,7 +137,8 @@ cd $WORK_DIR/ccnet-server-${SEAFILE_VERSION}-server/ && ./autogen.sh && \
 cd $WORK_DIR/seafile-server-${SEAFILE_VERSION}-server/
 patch -p1 < /tmp/seafile-server.patch
 ./autogen.sh && \
-    ./configure --without-mysql --without-postgresql && make && make install
+    ./configure --with-mysql --with-postgresql && \
+		make && make install
 
 #Copy some useful scripts to /usr/local/bin
 #mkdir -p /usr/local/bin
@@ -144,7 +148,7 @@ cp scripts/seaf-gc.sh /usr/local/bin/seafile-gc
 #mkdir -p /usr/local/share/seafile/
 mv scripts /usr/local/share/seafile/
 
-ldconfig
+ldconfig || true
 
 echo "export PYTHONPATH=/usr/local/lib/python2.7/site-packages:${SEAFILE_SERVER_DIR}/seafile-server/seahub/thirdpart" >> /etc/profile.d/python-local.sh
 
