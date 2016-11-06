@@ -8,7 +8,7 @@ CONTAINER_HOSTNAME="seafile.domain.com"
 #Container name
 CONTAINER_NAME="seafile"
 #Restart policy
-RESTART_POLCY="unless-stopped"
+RESTART_POLICY="unless-stopped"
 #Some extra arguments. Like -d ant -ti
 EXTRA_ARGS="-d -ti"
 #docker command. You can use "sudo docker" if you need so
@@ -21,6 +21,14 @@ DOCKER_ARGS=""
 
 [ ! -z "$CONTAINER_HOSTNAME" ] && CONTAINER_HOSTNAME="--hostname=$CONTAINER_HOSTNAME"
 [ ! -z "$CONTAINER_NAME" ]     && CONTAINER_NAME="--name=$CONTAINER_NAME"
-[ ! -z "$RESTART_POLCY" ]      && RESTART_POLCY="--restart=$RESTART_POLCY"
+[ ! -z "$RESTART_POLICY" ]      && RESTART_POLICY="--restart=$RESTART_POLICY"
 
-$DOCKER $DOCKER_ARGS run -v $VOLUME_PATH:/home/seafile -p 127.0.0.1:8000:8000 -p 127.0.0.1:8082:8082 $CONTAINER_HOSTNAME $CONTAINER_NAME $RESTART_POLCY $EXTRA_ARGS sunx/seafile
+$DOCKER $DOCKER_ARGS run \
+	-v $VOLUME_PATH:/home/seafile \
+	-p 127.0.0.1:8000:8000 \
+	-p 127.0.0.1:8082:8082 \
+	$CONTAINER_HOSTNAME \
+	$CONTAINER_NAME \
+	$RESTART_POLICY \
+	$EXTRA_ARGS \
+	sunx/seafile
