@@ -25,7 +25,6 @@ RUN /tmp/build.sh "$SEAFILE_VERSION" "$SEAFILE_SERVER_DIR" && rm /tmp/build.sh
 
 # Container initialization scripts ()
 COPY docker-run.sh /bin/docker-run
-COPY docker-run-root.sh /bin/docker-run-root
 
 EXPOSE 8000 8082
 VOLUME $SEAFILE_SERVER_DIR
@@ -33,4 +32,7 @@ VOLUME $SEAFILE_SERVER_DIR
 # Container will run some preparations with root access (fixing permissions, for example)
 #   and then execute /bin/docker-run with seafile user access to configure (if needed) and run
 #		Seafile server
-CMD ["/bin/docker-run-root"]
+
+USER seafile
+
+CMD ["/bin/docker-run"]

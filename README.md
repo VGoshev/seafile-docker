@@ -75,10 +75,12 @@ When you're inside of container, in home directory of seafile user, you can use 
 
 ## Tips&amp;Tricks and Known issues
 
+* You will need to change uid:gid of mounted data volume and files to 2016:2016 (seafile user/group).
+
 * If you do not want container to automatically upgrade your Seafile enviroment on image (and Seafile-server) update, 
 you can add empty file named `.no-update` to directory `/home/seafile` in your container. You can use **`docker exec <container_name> touch /home/seafile/.no-update`** for it.
 
-* Container will switch to user seafile after run, so if you need to do something with root access in container, you can use **`docker exec -ti <container_name> /bin/sh`** for it.
+* Container uses to user seafile after run, so if you need to do something with root access in container, you can use **`docker exec -ti <container_name> /bin/sh`** for it.
 
 * On first run (end every image upgrade) container will copy seahub directory from `/usr/local/share/seahub` to `/home/seafile/seafile-server/seahub `(i.e. to the volume), so it cost about 40Mb of space. I'm not sure if it could be changed without using webserver inside of container (But 40Mb of space isn't to much in our days, I think).
 
