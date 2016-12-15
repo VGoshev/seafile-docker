@@ -1,12 +1,12 @@
 # Seafile Server Docker image
 [Seafile](http://seafile.com/) server Docker image based on [Alpine Linux](https://hub.docker.com/_/alpine/).
 
-Also in my [Github repository](https://github.com/SunAngel/seafile-docker) you can find some usefull scripts for helping running containers.
+Also in my [Github repository](https://github.com/VGoshev/seafile-docker) you can find some usefull scripts for helping running containers.
 
 ## Supported tags and respective `Dockerfile` links
 
-* [`6.0.6`](https://github.com/SunAngel/seafile-docker/blob/6.0.6/docker/Dockerfile), [`6.0`](https://github.com/SunAngel/seafile-docker/blob/6.0/docker/Dockerfile), [`latest`](https://github.com/SunAngel/seafile-docker/blob/master/docker/Dockerfile) - Seafile Server v6.0.6 - latest avaliable version
-* [`6.0.5`](https://github.com/SunAngel/seafile-docker/blob/6.0.5/docker/Dockerfile) - Seafile Server v6.0.5
+* [`6.0.6`](https://github.com/VGoshev/seafile-docker/blob/6.0.6/docker/Dockerfile), [`6.0`](https://github.com/VGoshev/seafile-docker/blob/6.0/docker/Dockerfile), [`latest`](https://github.com/VGoshev/seafile-docker/blob/master/docker/Dockerfile) - Seafile Server v6.0.6 - latest avaliable version
+* [`6.0.5`](https://github.com/VGoshev/seafile-docker/blob/6.0.5/docker/Dockerfile) - Seafile Server v6.0.5
 
 ## Quickstart
 
@@ -45,7 +45,7 @@ This image doesnt contain any web-servers, because you, usually, already have so
 For Web-server configuration, as media directory location you should enter
 `<volume/path>/seafile-server/seahub/media`
 
-In [httpd-conf](https://github.com/SunAngel/seafile-docker/blob/master/httpd-conf/) directory you can find [lighttpd](https://www.lighttpd.net/) [config example](https://github.com/SunAngel/seafile-docker/blob/master/httpd-conf/lighttpd.conf.example).
+In [httpd-conf](https://github.com/VGoshev/seafile-docker/blob/master/httpd-conf/) directory you can find [lighttpd](https://www.lighttpd.net/) [config example](https://github.com/VGoshev/seafile-docker/blob/master/httpd-conf/lighttpd.conf.example).
 
 You can find 
 [Nginx](https://manual.seafile.com/deploy/deploy_with_nginx.html) and 
@@ -85,6 +85,6 @@ you can add empty file named `.no-update` to directory `/home/seafile` in your c
 
 ## License
 
-This Dockerfile and scripts are released under [MIT License](https://github.com/SunAngel/seafile-docker/blob/master/LICENSE).
+This Dockerfile and scripts are released under [MIT License](https://github.com/VGoshev/seafile-docker/blob/master/LICENSE).
 
 [Seafile](https://github.com/haiwen/seafile/blob/master/LICENSE.txt) and [Alpine Linux](https://www.alpinelinux.org/) have their own licenses.

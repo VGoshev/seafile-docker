@@ -10,7 +10,7 @@ CONTAINER_NAME="seafile"
 #Restart policy
 RESTART_POLICY="unless-stopped"
 #Some extra arguments. Like -d ant -ti
-EXTRA_ARGS="-d -ti"
+EXTRA_ARGS="-d"
 #docker command. You can use "sudo docker" if you need so
 DOCKER="docker"
 #Extra args to docker command. Like using remote dockerd or something else
