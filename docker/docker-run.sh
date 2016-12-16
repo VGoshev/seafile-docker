@@ -214,6 +214,6 @@ if [ $RESET_ADMIN -eq 1 ]; then
 	echo ""
 fi
 
-echo 'exec tail -f logs/*'
-#exec tail -f logs/*
-exec /bin/sh
+#echo 'exec tail -f logs/*'
+exec tail -f logs/*
+#exec /bin/sh
