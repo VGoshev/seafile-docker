@@ -1,5 +1,4 @@
 #!/bin/sh
-#set -x
 #Seafile initialisation and start script
 VERSION_FILE=".seafile_version"
 
@@ -199,7 +198,11 @@ else #[ ! -f $VERSION_FILE ];
 fi
 
 echo "Starting seafile server..."
-seafile-admin start
+if [ "$SEAHUB" == "fastcgi" ]; then
+	seafile-admin start --fastcgi
+else
+	seafile-admin start
+fi
 
 if [ $RESET_ADMIN -eq 1 ]; then
 	# Create admin user only in interactive mode. Just becouse.
