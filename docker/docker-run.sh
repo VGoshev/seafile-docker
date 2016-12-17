@@ -49,6 +49,7 @@ start_seafile_server() {
 }
 
 stop_seafile() {
+	echo "SIGTERM or similar received, stopping Seafile..."
 	cd ${HOME}
 	seafile-admin stop
 	# We need to wait a bit to make sure that
@@ -58,12 +59,14 @@ stop_seafile() {
 }
 
 kill_seafile() {
+	echo "SIGKILL received, killing Seafile..."
 	killall -9 seafile-controller
 	killall -9 $(cat ${HOME}/seafile-server/runtime/seahub.pid)
 	exit 0
 }
 
 hup_seafile() {
+	echo "SIGHUP or similar received, restarting Seafile..."
 	cd ${HOME}
 	seafile-admin stop
 	sleep 10
