@@ -58,8 +58,8 @@ When you running container, you can pass several enviroment variables (with **--
 * **`INTERACTIVE`**=<0|1> - if container should ask you about some configuration values (on first run) and about upgrades. Default: 1
 * **`SERVER_NAME`**=<...> - Name of Seafile server (3 - 15 letters or digits), used only for first run in non-interactive mode. Default: Seafile
 * **`SERVER_DOMAIN`**=<...> - Domain or ip of seafile server, used only for first run in non-interactive mode. Default: seafile.domain.com
-* **`SEAHUB`**=<fastcgi> - If seahub should be started in FastCGI mode (set it "fastcgi" for FastCGI mode or leave empty otherwise). Default: empty (not FastCGI mode).
-* **`SEAFILE_FASTCGI_HOST`**=<ip> - Binding ip for seahub in FastCGI mode. Default: 127.0.0.1.
+* **`SEAHUB`**=\<fastcgi> - If seahub should be started in FastCGI mode (set it "fastcgi" for FastCGI mode or leave empty otherwise). Default: empty (not FastCGI mode).
+* **`SEAFILE_FASTCGI_HOST`**=\<ip> - Binding ip for seahub in FastCGI mode. Default: 127.0.0.1.
 
 ## Useful commands in container
 
