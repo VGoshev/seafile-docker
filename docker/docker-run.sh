@@ -256,6 +256,8 @@ if [ $RESET_ADMIN -eq 1 ]; then
 fi
 
 if [ "x$HANDLE_SIGNALS" != "x1" ]; then
+	exec tail -f logs/*
+else
 	#We can't run exec or our signal-handling functions will not work =(
 	tail -f logs/* &
 	#Also we'll need to run infinity cycle I'm not sure if it's really is good idea
@@ -263,6 +265,4 @@ if [ "x$HANDLE_SIGNALS" != "x1" ]; then
 	while true; do
 		sleep 1
 	done
-else
-	exec tail -f logs/*
 fi
