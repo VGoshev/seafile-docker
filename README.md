@@ -45,8 +45,9 @@ This image doesnt contain any web-servers, because you, usually, already have so
 For Web-server configuration, as media directory location you should enter
 `<volume/path>/seafile-server/seahub/media`
 
-In [httpd-conf](https://github.com/VGoshev/seafile-docker/blob/master/httpd-conf/) directory you can find [lighttpd](https://www.lighttpd.net/) [config example](https://github.com/VGoshev/seafile-docker/blob/master/httpd-conf/lighttpd.conf.example).
-In [haproxy-conf](https://github.com/VGoshev/seafile-docker/blob/master/haproxy-conf/) directory you can find [haproxy](https://www.haproxy.com/) [config example](https://github.com/VGoshev/seafile-docker/blob/master/haproxy-conf/haproxy.cfg).
+In [httpd-conf](https://github.com/VGoshev/seafile-docker/blob/master/httpd-conf/) directory you can find
+[lighttpd](https://www.lighttpd.net/) [config example](https://github.com/VGoshev/seafile-docker/blob/master/httpd-conf/lighttpd.conf.example) and
+[haaproxy](https://www.haproxy.com/) [config example](https://github.com/VGoshev/seafile-docker/blob/master/httpd-conf/haproxy.cfg).
 
 You can find 
 [Nginx](https://manual.seafile.com/deploy/deploy_with_nginx.html) and 
