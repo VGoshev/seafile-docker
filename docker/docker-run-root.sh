@@ -12,7 +12,7 @@ if [ "$DIR_OWNER" != "seafile" ]; then
 fi
 
 #echo "#!/bin/sh" > ~seafile/.passed_env
-for i in INTERACTIVE SERVER_NAME SERVER_DOMAIN SEAHUB ; do 
+for i in INTERACTIVE SERVER_NAME SERVER_DOMAIN SEAHUB SEAFILE_FASTCGI_HOST; do 
 	PASS_ENV="$PASS_ENV $i=` eval echo '$'$i`"
 done
 

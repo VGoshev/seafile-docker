@@ -155,6 +155,8 @@ echo "export PYTHONPATH=/usr/local/lib/python2.7/site-packages:${SEAFILE_SERVER_
 
 echo "Seafile-Server has been built successfully!"
 
+#WSGIdav is needed for seafdav
+pip install wsgidav
 ##############################
 # Do some preparations       #
 # Like add seafile user and  #
