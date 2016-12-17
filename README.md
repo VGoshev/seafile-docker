@@ -32,6 +32,8 @@ This image uses 2 tcp ports:
 * 8000 - seafile port
 * 8082 - seahub port
 
+If you want to run seafdav (WebDAV for Seafile), then port 8080 will be used also.
+
 ### Volume
 This image uses one volume with internal path `/home/seafile`
 
@@ -78,6 +80,8 @@ When you're inside of container, in home directory of seafile user, you can use 
 ## Tips&amp;Tricks and Known issues
 
 * Make sure, that mounted data volume and files are radable and writable by container's seafile user(2016:2016).
+
+* If you want to run seafdav, which is disabled by default, you can read it's [manual](https://manual.seafile.com/extension/webdav.html). Do not forget to publish port 8080 after it.
 
 * If you do not want container to automatically upgrade your Seafile enviroment on image (and Seafile-server) update, 
 you can add empty file named `.no-update` to directory `/home/seafile` in your container. You can use **`docker exec <container_name> touch /home/seafile/.no-update`** for it.
