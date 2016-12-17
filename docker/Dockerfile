@@ -29,10 +29,8 @@ COPY docker-run.sh /bin/docker-run
 EXPOSE 8000 8082
 VOLUME $SEAFILE_SERVER_DIR
 
-# Container will run some preparations with root access (fixing permissions, for example)
-#   and then execute /bin/docker-run with seafile user access to configure (if needed) and run
-#		Seafile server
-
 USER seafile
 
+# Container will run /bin/docker-run with seafile user access 
+# to configure (if needed) and run Seafile server
 CMD ["/bin/docker-run"]
