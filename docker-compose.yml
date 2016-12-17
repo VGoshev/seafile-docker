@@ -1,0 +1,26 @@
+version: '2'
+services:
+  seafile:
+    image: sunx/seafile
+    build:
+      context: ./docker
+    
+    volumes:
+      - /home/docker/seafile:/home/seafile:rw
+    ports:
+      - 127.0.0.1:8000:8000
+      - 127.0.0.1:8082:8082
+      #Port 8080 is used for seafdav which is disabled by default
+#      - 127.0.0.1:8080:8080
+
+    environment:
+      # Start seahub in FastCGI mode
+      SEAHUB: fastcgi
+      SEAFILE_FASTCGI_HOST: 0.0.0.0
+      HANDLE_SIGNALS: 1
+#      DEBUG: 1
+    
+    
+    container_name: seafile
+#    domainname: seafile.domain.com
+    restart: unless-stopped
