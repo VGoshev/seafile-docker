@@ -7,7 +7,7 @@ Also in my [Github repository](https://github.com/VGoshev/seafile-docker) you ca
 
 * [`6.0.7`](https://github.com/VGoshev/seafile-docker/blob/6.0.6/docker/Dockerfile), [`6.0`](https://github.com/VGoshev/seafile-docker/blob/6.0/docker/Dockerfile), [`latest`](https://github.com/VGoshev/seafile-docker/blob/master/docker/Dockerfile) - Seafile Server v6.0.7 - latest available version
 
-Dockerfiles for older versions of Seafile Server you can find [there](https://github.com/VGoshev/seafile-docker/tags)
+Dockerfiles for older versions of Seafile Server you can find [there](https://github.com/VGoshev/seafile-docker/tags).
 
 ## Quickstart
 
