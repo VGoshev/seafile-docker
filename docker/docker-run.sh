@@ -1,4 +1,8 @@
 #!/bin/sh
+
+#Do debug output in case of debug
+[ "x$DEBUG" = "x1" ] && set -x
+
 #Seafile initialisation and start script
 VERSION_FILE=".seafile_version"
 
@@ -32,9 +36,24 @@ fi
 #Just in case
 cd $HOME
 
+#########################
+# Some useful functions #
+#########################
+
+start_seafile_server() {
+	if [ "$SEAHUB" == "fastcgi" ]; then
+		seafile-admin start --fastcgi
+	else
+		seafile-admin start
+	fi
+}
+
 stop_seafile() {
 	cd ${HOME}
 	seafile-admin stop
+	# We need to wait a bit to make sure that
+	#  seafile server really has been stopped
+	sleep 5 
 	exit 0
 }
 
@@ -47,13 +66,8 @@ kill_seafile() {
 hup_seafile() {
 	cd ${HOME}
 	seafile-admin stop
-	exit 0
-}
-
-hup_seafile() {
-	cd ${HOME}
-	seafile-admin stop
-	seafile-admin start
+	sleep 10
+	start_seafile_server
 }
 
 trap stop_seafile INT TERM PWR
@@ -61,7 +75,6 @@ trap kill_seafile KILL
 trap hup_seafile HUP
 
 [ ! -d 'seafile-server' ] && mkdir seafile-server
-
 
 # Fix seahub dir if needed
 [ ! -d 'seafile-server/seahub' ] && mkdir -p seafile-server/seahub && \
@@ -227,11 +240,7 @@ fi
 
 
 echo "Starting seafile server..."
-if [ "$SEAHUB" == "fastcgi" ]; then
-	seafile-admin start --fastcgi
-else
-	seafile-admin start
-fi
+start_seafile_server
 
 if [ $RESET_ADMIN -eq 1 ]; then
 	# Create admin user only in interactive mode. Just becouse.
@@ -246,4 +255,14 @@ if [ $RESET_ADMIN -eq 1 ]; then
 	echo ""
 fi
 
-exec tail -f logs/*
+if [ "x$HANDLE_SIGNALS" != "x1" ]; then
+	#We can't run exec or our signal-handling functions will not work =(
+	tail -f logs/* &
+	#Also we'll need to run infinity cycle I'm not sure if it's really is good idea
+	# But I have no more ides how to do it
+	while true; do
+		sleep 1
+	done
+else
+	exec tail -f logs/*
+fi
