@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:3.4
 MAINTAINER Vladimir Goshev <sunx@sunx.name>
 
 # SEAFILE_SERVER_DIR:
