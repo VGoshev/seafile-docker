@@ -77,7 +77,18 @@ trap stop_seafile INT TERM PWR
 trap kill_seafile KILL
 trap hup_seafile HUP
 
-[ ! -d 'seafile-server' ] && mkdir seafile-server
+if [ ! -d 'seafile-server' ]; then
+	mkdir seafile-server
+	RES=$?
+	#If we wasn't able to create directory then,
+	#  probably permissions for $HOME are wrong
+	if [ $RES -ne 0 ]; then
+		echo "ERROR: Can't create directory $HOME/seafile, probably bad permisiions"
+		echo "To fix permissions, you can run:"
+		echo "docker run --rm -v <mount_point>:$HOME --user=0 <image> chown seafile:seafile $HOME"
+		exit 1
+	fi
+fi
 
 # Fix seahub dir if needed
 [ ! -d 'seafile-server/seahub' ] && mkdir -p seafile-server/seahub && \
