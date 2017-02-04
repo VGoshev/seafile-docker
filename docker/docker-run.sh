@@ -73,10 +73,6 @@ hup_seafile() {
 	start_seafile_server
 }
 
-trap stop_seafile INT TERM PWR
-trap kill_seafile KILL
-trap hup_seafile HUP
-
 if [ ! -d 'seafile-server' ]; then
 	mkdir seafile-server
 	RES=$?
@@ -255,6 +251,10 @@ fi
 
 echo "Starting seafile server..."
 start_seafile_server
+
+trap stop_seafile INT TERM PWR
+trap kill_seafile KILL
+trap hup_seafile HUP
 
 if [ $RESET_ADMIN -eq 1 ]; then
 	# Create admin user only in interactive mode. Just becouse.
