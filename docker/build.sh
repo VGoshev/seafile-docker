@@ -128,7 +128,7 @@ tar czf /usr/local/share/seafile/seahub.tgz -C $WORK_DIR/seahub-${SEAFILE_VERSIO
 ###############################
 # Build and install libSeaRPC #
 ###############################
-cd libsearpc-${LIBSEARPC_VERSION}/ && ./autogen.sh && ./configure && make && make install
+cd $WORK_DIR/libsearpc-${LIBSEARPC_VERSION}/ && ./autogen.sh && ./configure && make && make install
 
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 
