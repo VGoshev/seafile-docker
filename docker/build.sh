@@ -105,10 +105,26 @@ wget https://github.com/haiwen/seafdav/archive/v${SEAFILE_VERSION}-server.tar.gz
 # Seahub is python application,     #
 #  just copy it in proper directory #
 #####################################
+
+cd $WORK_DIR/seahub-${SEAFILE_VERSION}-server/ &&
+echo "diff --git a/seahub/settings.py b/seahub/settings.py
+index 0b40098..a569b94 100644
+--- a/seahub/settings.py
++++ b/seahub/settings.py
+@@ -472,7 +472,7 @@ SESSION_COOKIE_AGE = 24 * 60 * 60
+ # Days of remembered login info (deafult: 7 days)
+ LOGIN_REMEMBER_DAYS = 7
+
+-SEAFILE_VERSION = '5.1.0'
++SEAFILE_VERSION = '${SEAFILE_VERSION}'
+
+ # Compress static files(css, js)
+ COMPRESS_URL = MEDIA_URL
+" | patch -p1
+
 #mv $WORK_DIR/seahub-${SEAFILE_VERSION}-server/ /usr/local/share/seahub
 mkdir -p /usr/local/share/seafile
 tar czf /usr/local/share/seafile/seahub.tgz -C $WORK_DIR/seahub-${SEAFILE_VERSION}-server/ ./
-
 ###############################
 # Build and install libSeaRPC #
 ###############################
