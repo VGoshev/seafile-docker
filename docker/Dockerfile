@@ -13,7 +13,7 @@ MAINTAINER Vladimir Goshev <sunx@sunx.name>
 # uUID - set UID of seafile user, default: 2016
 # uGID - set GID of seafile user, default: 2016
 ENV SEAFILE_SERVER_DIR="/home/seafile" \
-	SEAFILE_VERSION="6.0.8"
+	SEAFILE_VERSION="6.0.9"
 
 # All installation proccess is in build.sh
 # It is possible to do all work via RUN command(s)
