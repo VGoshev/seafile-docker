@@ -15,7 +15,7 @@ To run container you can use following command:
 ```bash
 docker run \  
   -v /home/docker/seafile:/home/seafile \  
-  -p 127.0.0.1:8000:80000 \  
+  -p 127.0.0.1:8000:8000 \  
   -p 127.0.0.1:8082:8082 \  
   -ti sunx/seafile`
 ```
