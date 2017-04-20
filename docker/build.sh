@@ -21,7 +21,7 @@ if [ "x$1" != "x" ]; then
     SEAFILE_VERSION=$1
 fi
 
-[ -z $LIBEVHTP_VERSION  ] && LIBEVHTP_VERSION="1.1.6"
+[ -z $LIBEVHTP_VERSION  ] && LIBEVHTP_VERSION="1.2.0"
 [ -z $LIBSEARPC_VERSION ] && LIBSEARPC_VERSION="3.1-latest"
 ##################################
 # Where we should install Seahub #
@@ -87,7 +87,8 @@ PYTHON_PACKAGES_DIR=`python -c "from distutils.sysconfig import get_python_lib; 
 ####################
 # Install libevhtp #
 ####################
-wget https://github.com/ellzey/libevhtp/archive/${LIBEVHTP_VERSION}.tar.gz -O- | tar xzf -
+#wget https://github.com/ellzey/libevhtp/archive/${LIBEVHTP_VERSION}.tar.gz -O- | tar xzf -
+wget https://github.com/haiwen/libevhtp/archive/${LIBEVHTP_VERSION}.tar.gz -O- | tar xzf -
 cd libevhtp-${LIBEVHTP_VERSION}/ && cmake -DEVHTP_DISABLE_SSL=ON -DEVHTP_BUILD_SHARED=ON . && make && make install 
 
 ###################################
