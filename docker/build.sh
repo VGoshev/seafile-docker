@@ -16,12 +16,13 @@ PATH="${PATH}:/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
 # Get Seafile Version from first arg #
 #  (or use 6.0.5 as default)         #
 ######################################
-SEAFILE_VERSION="6.0.5"
+SEAFILE_VERSION="6.0.10"
 if [ "x$1" != "x" ]; then
     SEAFILE_VERSION=$1
 fi
 
-[ -z $LIBEVHTP_VERSION  ] && LIBEVHTP_VERSION="1.2.0"
+#[ -z $LIBEVHTP_VERSION  ] && LIBEVHTP_VERSION="1.2.0"
+[ -z $LIBEVHTP_VERSION  ] && LIBEVHTP_VERSION="18c649203f009ef1d77d6f8301eba09af3777adf"
 [ -z $LIBSEARPC_VERSION ] && LIBSEARPC_VERSION="3.1-latest"
 ##################################
 # Where we should install Seahub #
@@ -89,6 +90,7 @@ PYTHON_PACKAGES_DIR=`python -c "from distutils.sysconfig import get_python_lib; 
 ####################
 #wget https://github.com/ellzey/libevhtp/archive/${LIBEVHTP_VERSION}.tar.gz -O- | tar xzf -
 wget https://github.com/haiwen/libevhtp/archive/${LIBEVHTP_VERSION}.tar.gz -O- | tar xzf -
+#https://github.com/haiwen/libevhtp/archive/18c649203f009ef1d77d6f8301eba09af3777adf.zip
 cd libevhtp-${LIBEVHTP_VERSION}/ && cmake -DEVHTP_DISABLE_SSL=ON -DEVHTP_BUILD_SHARED=ON . && make && make install 
 
 ###################################
