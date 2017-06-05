@@ -75,13 +75,8 @@ apk add --virtual .build_dep \
     curl-dev libevent-dev glib-dev util-linux-dev intltool \
     sqlite-dev libarchive-dev libtool jansson-dev vala fuse-dev \
     cmake make musl-dev gcc g++ automake autoconf bsd-compat-headers \
-    python-dev file mariadb-dev mariadb-dev py-pip
+    python-dev file mariadb-dev mariadb-dev py-pip git
 
-pip install django==1.8 pytz django-statici18n djangorestframework \
-    django_compressor django-post_office gunicorn flup chardet \
-    python-dateutil six openpyxl \
-    django-picklefield
-pip install https://github.com/haiwen/django-constance/archive/bde7f7c.zip
 
 PYTHON_PACKAGES_DIR=`python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`
 
@@ -123,7 +118,13 @@ index 0b40098..a569b94 100644
 
  # Compress static files(css, js)
  COMPRESS_URL = MEDIA_URL
-" | patch -p1
+" | patch -p1 && pip install -r requirements.txt
+
+pip install gunicorn flup django-picklefield requests
+#   django_compressor django-post_office 
+#   django==1.8 pytz django-statici18n djangorestframework
+#   chardet python-dateutil six openpyxl
+#pip install https://github.com/haiwen/django-constance/archive/bde7f7c.zip
 
 #mv $WORK_DIR/seahub-${SEAFILE_VERSION}-server/ /usr/local/share/seahub
 mkdir -p /usr/local/share/seafile
