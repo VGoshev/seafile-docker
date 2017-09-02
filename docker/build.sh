@@ -120,11 +120,12 @@ index 0b40098..a569b94 100644
  COMPRESS_URL = MEDIA_URL
 " | patch -p1 && pip install -r requirements.txt
 
-pip install gunicorn flup django-picklefield requests
-#   django_compressor django-post_office 
-#   django==1.8 pytz django-statici18n djangorestframework
-#   chardet python-dateutil six openpyxl
+pip install gunicorn flup django-picklefield requests \
+   django_compressor django-post_office \
+   django==1.8 pytz django-statici18n djangorestframework \
+   chardet python-dateutil six openpyxl
 #pip install https://github.com/haiwen/django-constance/archive/bde7f7c.zip
+pip install https://github.com/haiwen/django-constance/archive/6b04a31.zip
 
 #mv $WORK_DIR/seahub-${SEAFILE_VERSION}-server/ /usr/local/share/seahub
 mkdir -p /usr/local/share/seafile
