@@ -1,7 +1,8 @@
-#!/bin/sh -e
+#!/bin/sh
 
 #Debug!
 set -x
+set -e
 
 # Fix little bug in alpine image
 ln -s /etc/profile.d/color_prompt /etc/profile.d/color_prompt.sh
@@ -113,19 +114,19 @@ index 0b40098..a569b94 100644
  # Days of remembered login info (deafult: 7 days)
  LOGIN_REMEMBER_DAYS = 7
 
--SEAFILE_VERSION = '5.1.0'
+-SEAFILE_VERSION = '6.2.0'
 +SEAFILE_VERSION = '${SEAFILE_VERSION}'
 
  # Compress static files(css, js)
  COMPRESS_URL = MEDIA_URL
 " | patch -p1 && pip install -r requirements.txt
 
-pip install gunicorn flup django-picklefield requests \
-   django_compressor django-post_office \
-   django==1.8 pytz django-statici18n djangorestframework \
-   chardet python-dateutil six openpyxl
+pip install gunicorn flup django-picklefield requests
+#   django_compressor django-post_office \
+#   django==1.8 pytz django-statici18n djangorestframework \
+#   chardet python-dateutil six openpyxl
 #pip install https://github.com/haiwen/django-constance/archive/bde7f7c.zip
-pip install https://github.com/haiwen/django-constance/archive/6b04a31.zip
+#pip install https://github.com/haiwen/django-constance/archive/6b04a31.zip
 
 #mv $WORK_DIR/seahub-${SEAFILE_VERSION}-server/ /usr/local/share/seahub
 mkdir -p /usr/local/share/seafile
@@ -178,7 +179,7 @@ mv seafobj ${PYTHON_PACKAGES_DIR}/
 cd $WORK_DIR/seafdav-${SEAFILE_VERSION}-server/
 mv wsgidav ${PYTHON_PACKAGES_DIR}/
 
-echo "export PYTHONPATH=${PYTHON_PACKAGES_DIR}:/usr/local/lib/python2.7/site-packages/:${SEAFILE_SERVER_DIR}/seafile-server/seahub/thirdpart" >> /etc/profile.d/python-local.sh
+echo "export PYTHONPATH=${PYTHON_PACKAGES_DIR}:/usr/local/lib/python2.7/site-packages/:/usr/local/lib/python2.7/:${SEAFILE_SERVER_DIR}/seafile-server/seahub/thirdpart" >> /etc/profile.d/python-local.sh
 
 ldconfig || true
 

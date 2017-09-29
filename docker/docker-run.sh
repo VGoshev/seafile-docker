@@ -270,10 +270,10 @@ if [ $RESET_ADMIN -eq 1 ]; then
 fi
 
 if [ "x$HANDLE_SIGNALS" != "x1" ]; then
-	exec tail -f logs/*
+	exec tail -f logs/* seafile-server/runtime/*.log
 else
 	#We can't run exec or our signal-handling functions will not work =(
-	tail -f logs/* &
+	tail -f logs/* seafile-server/runtime/*.log &
 	#Also we'll need to run infinity cycle I'm not sure if it's really is good idea
 	# But I have no more ides how to do it
 	while true; do
