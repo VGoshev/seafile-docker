@@ -20,7 +20,6 @@ if [ "x$1" != "x" ]; then
     SEAFILE_VERSION=$1
 fi
 
-#[ -z $LIBEVHTP_VERSION  ] && LIBEVHTP_VERSION="1.2.0"
 [ -z $LIBEVHTP_VERSION  ] && LIBEVHTP_VERSION="18c649203f009ef1d77d6f8301eba09af3777adf"
 [ -z $LIBSEARPC_VERSION ] && LIBSEARPC_VERSION="3.1-latest"
 ##################################
@@ -59,9 +58,7 @@ PYTHON_PACKAGES_DIR=`python -c "from distutils.sysconfig import get_python_lib; 
 ####################
 # Install libevhtp #
 ####################
-#wget https://github.com/ellzey/libevhtp/archive/${LIBEVHTP_VERSION}.tar.gz -O- | tar xzf -
 wget https://github.com/haiwen/libevhtp/archive/${LIBEVHTP_VERSION}.tar.gz -O- | tar xzf -
-#https://github.com/haiwen/libevhtp/archive/18c649203f009ef1d77d6f8301eba09af3777adf.zip
 cd libevhtp-${LIBEVHTP_VERSION}/ && cmake -DEVHTP_DISABLE_SSL=ON -DEVHTP_BUILD_SHARED=ON . && make && make install && cp oniguruma/onigposix.h /usr/include/
 
 ###################################
@@ -97,13 +94,7 @@ index 0b40098..a569b94 100644
 " | patch -p1 && pip install -r requirements.txt
 
 pip install gunicorn flup django-picklefield requests
-#   django_compressor django-post_office \
-#   django==1.8 pytz django-statici18n djangorestframework \
-#   chardet python-dateutil six openpyxl
-#pip install https://github.com/haiwen/django-constance/archive/bde7f7c.zip
-#pip install https://github.com/haiwen/django-constance/archive/6b04a31.zip
 
-#mv $WORK_DIR/seahub-${SEAFILE_VERSION}-server/ /usr/local/share/seahub
 mkdir -p /usr/local/share/seafile
 tar czf /usr/local/share/seafile/seahub.tgz -C $WORK_DIR/seahub-${SEAFILE_VERSION}-server/ ./
 ###############################
@@ -135,11 +126,9 @@ patch -p1 < /tmp/seafile-server.patch
 	make && make install
 
 #Copy some useful scripts to /usr/local/bin
-#mkdir -p /usr/local/bin
 cp scripts/seaf-fsck.sh /usr/local/bin/seafile-fsck
 cp scripts/seaf-gc.sh /usr/local/bin/seafile-gc
 # Also copy scripts to save them
-#mkdir -p /usr/local/share/seafile/
 mv scripts /usr/local/share/seafile/
 
 ###########

@@ -104,8 +104,6 @@ if [ ! -f $VERSION_FILE ]; then
 
 	# Init ccnet
 	if [ ! -d 'ccnet' ]; then
-		#SERVER_NAME=""
-		#SERVER_DOMAIN=""
 		if [ $INTERACTIVE -eq 1 ]; then
 			echo "Enter the name of the server  (3 - 15 letters or digits)"
 			echo -n "[server name ]: "
@@ -145,11 +143,9 @@ if [ ! -f $VERSION_FILE ]; then
 	fi
 
 	# Do syncdb anyway, because it willn't corrupt old databse
-	#if [ ! -f 'seahub.db' ]; then
 	python seafile-server/seahub/manage.py syncdb || exit 5
 	echo
 	echo '* seahub database synchronized successfully'
-	#fi
 
 	#Make Gunicorn config
 	if [ ! -f 'seafile-server/runtime/seahub.conf' ]; then
@@ -174,7 +170,7 @@ accesslog = os.path.join(runtime_dir, 'access.log')" > "${HOME}/seafile-server/r
 	#Say that we want to create admin user after server start
 	RESET_ADMIN=1
 
-else #[ ! -f $VERSION_FILE ];
+else
 	# Need to check if we need to run upgrade scripts
 	echo "Version file found in container, checking it"
 	OLD_VER=`cat $VERSION_FILE`
@@ -199,10 +195,8 @@ else #[ ! -f $VERSION_FILE ];
 			# Get first and second numbers of versions (we do not care about last number, actually)
 			OV1=`echo "$OLD_VER" | cut -d. -f1`
 			OV2=`echo "$OLD_VER" | cut -d. -f2`
-			#OV3=`echo "$OLD_VER" | cut -d. -f3`
 			CV1=`echo "$SEAFILE_VERSION" | cut -d. -f1`
 			CV2=`echo "$SEAFILE_VERSION" | cut -d. -f2`
-			#CV3=`echo "$SEAFILE_VERSION" | cut -d. -f3`
 
 			i1=$OV1
 			i1p=$i1

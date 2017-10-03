@@ -10,7 +10,6 @@ if `echo $ARCH | grep -q arm`; then
 	sed -r 's,(FROM)\s+(alpine),\1 armhf/\2,' < ./docker/Dockerfile > ./docker/Dockerfile.arm
 
 	docker build -t $IMAGE -f ./docker/Dockerfile.arm ./docker/
-	#&& rm -rf ./build
 else
 	if `echo $ARCH | grep -q x86_64`; then
 		docker build -t $IMAGE ./docker/
