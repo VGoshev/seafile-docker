@@ -63,19 +63,50 @@ apk update
 # Runtime dependencies for Seafile-Server #
 # bash is needed for upgrade scripts      #
 ###########################################
-apk add bash openssl python py-setuptools py-imaging sqlite \
-    libevent util-linux glib jansson libarchive \
-		mariadb-client-libs postgresql-libs py-pillow
+apk add \
+        bash \
+        glib \
+        jansson \
+        libarchive \
+        libevent \
+        mariadb-client-libs \
+        openssl \
+        postgresql-libs \
+        py-imaging \
+        py-pillow \
+        py-setuptools \
+        python \
+        sqlite \
+        util-linux \
 
 #################################################
 # Add build-deps for Seafile-Server             #
 #################################################
 apk add --virtual .build_dep \
-    curl-dev libevent-dev glib-dev util-linux-dev intltool \
-    sqlite-dev libarchive-dev libtool jansson-dev vala fuse-dev \
-    cmake make musl-dev gcc g++ automake autoconf bsd-compat-headers \
-    python-dev file mariadb-dev mariadb-dev py-pip git
-
+        autoconf \
+        automake \
+        bsd-compat-headers \
+        cmake \
+        curl-dev \
+        file \
+        fuse-dev \
+        g++ \
+        gcc \
+        git \
+        glib-dev \
+        intltool \
+        jansson-dev \
+        libarchive-dev \
+        libevent-dev \
+        libtool \
+        make \
+        mariadb-dev \
+        musl-dev \
+        py-pip \
+        python-dev \
+        sqlite-dev \
+        util-linux-dev \
+        vala \
 
 PYTHON_PACKAGES_DIR=`python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`
 
