@@ -13,7 +13,7 @@ source /etc/profile.d/python-local.sh
 # The PATH-variable depends on the host's setting. /usr/local/bin may not be included in every distro
 export PATH="${PATH}:/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
 
-SEAFILE_VERSION=`cat /var/lib/seafile/version`
+SEAFILE_VERSION=$(cat /var/lib/seafile/version)
 if [ -z "$SEAFILE_VERSION" ]; then
 	echo "can not find Seafile version in file /var/lib/seafile/version, probably corrupted image"
 	exit 1
@@ -116,9 +116,9 @@ if [ ! -f $VERSION_FILE ]; then
 
 	# Init seahub
 	if [ ! -f 'conf/seahub_settings.py' ]; then
-		SKEY1=`uuidgen -r`
-		SKEY2=`uuidgen -r`
-		SKEY=`echo "$SKEY1$SKEY2" | cut -c1-40`
+		SKEY1=$(uuidgen -r)
+		SKEY2=$(uuidgen -r)
+		SKEY=$(echo "$SKEY1$SKEY2" | cut -c1-40)
 		echo "SECRET_KEY = '${SKEY}'" > ${HOME}/conf/seahub_settings.py
 
 		mkdir -p seahub-data/avatars
@@ -159,7 +159,7 @@ accesslog = os.path.join(runtime_dir, 'access.log')" > "${HOME}/seafile-server/r
 else
 	# Need to check if we need to run upgrade scripts
 	echo "Version file found in container, checking it"
-	OLD_VER=`cat $VERSION_FILE`
+	OLD_VER=$(cat $VERSION_FILE)
 	if [ "x$OLD_VER" != "x$SEAFILE_VERSION" ]; then
 		echo "Version is different. Stored version is $OLD_VER, Current version is $SEAFILE_VERSION"
 		if [ -f '.no-update' ]; then
@@ -178,16 +178,16 @@ else
 			# Copy upgrade scripts. symlink doesn't work, unfortunatelly 
 			#  and I do not want to patch all of them
 			cp -rf /usr/local/share/seafile/scripts/upgrade seafile-server/
-			# Get first and second numbers of versions (we do not care about last number, actually)
-			OV1=`echo "$OLD_VER" | cut -d. -f1`
-			OV2=`echo "$OLD_VER" | cut -d. -f2`
-			CV1=`echo "$SEAFILE_VERSION" | cut -d. -f1`
-			CV2=`echo "$SEAFILE_VERSION" | cut -d. -f2`
+			# Get major and minor version number
+			OV1=$(echo "$OLD_VER" | cut -d. -f1)
+			OV2=$(echo "$OLD_VER" | cut -d. -f2)
+			CV1=$(echo "$SEAFILE_VERSION" | cut -d. -f1)
+			CV2=$(echo "$SEAFILE_VERSION" | cut -d. -f2)
 
 			i1=$OV1
 			i1p=$i1
 			i2p=$OV2
-			i2=`expr $i2p '+' 1`
+			i2=$(( $i2p + 1 ))
 			while [ $i1 -le $CV1 ]; do
 				SCRIPT="./seafile-server/upgrade/upgrade_${i1p}.${i2p}_${i1}.${i2}.sh"
 				if [ -f $SCRIPT ]; then
@@ -200,10 +200,10 @@ else
 
 					i1p=$i1
 					i2p=$i2
-					i2=`expr "$i2" '+' 1`
+					i2=$(( $i2 + 1 ))
 				else
 					i1p=$i1
-					i1=`expr "$i1" '+' 1`
+					i1=$(( $i1 + 1 ))
 					i2=0
 				fi
 			done

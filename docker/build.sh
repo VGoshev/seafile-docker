@@ -27,7 +27,7 @@ cd $WORK_DIR
 [ -z "$uUID" ] && uUID=2016
 [ -z "$uGID" ] && uGID=2016
 
-PYTHON_PACKAGES_DIR=`python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`
+PYTHON_PACKAGES_DIR=$(python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
 
 ####################
 # Install libevhtp #

@@ -1,8 +1,8 @@
 #!/bin/sh
 
-cd `dirname $0`
+cd $(dirname $0)
 
-ARCH=`uname -m`
+ARCH=$(uname -m)
 IMAGE="sunx/seafile"
 
 if echo $ARCH | grep -q arm; then
