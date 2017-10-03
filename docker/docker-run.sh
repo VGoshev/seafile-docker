@@ -56,13 +56,6 @@ stop_seafile() {
 	exit 0
 }
 
-kill_seafile() {
-	echo "SIGKILL received, killing Seafile..."
-	killall -9 seafile-controller
-	killall -9 $(cat ${HOME}/seafile-server/runtime/seahub.pid)
-	exit 0
-}
-
 hup_seafile() {
 	echo "SIGHUP or similar received, restarting Seafile..."
 	cd ${HOME}
@@ -242,7 +235,6 @@ echo "Starting seafile server..."
 start_seafile_server
 
 trap stop_seafile INT TERM PWR
-trap kill_seafile KILL
 trap hup_seafile HUP
 
 if [ $RESET_ADMIN -eq 1 ]; then
