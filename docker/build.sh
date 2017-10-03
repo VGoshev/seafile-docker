@@ -55,29 +55,6 @@ cd $WORK_DIR
 [ -z "$uGID" ] && uGID=2016
 
 
-################################
-# Install some needed packages #
-################################
-apk update
-###########################################
-# Runtime dependencies for Seafile-Server #
-# bash is needed for upgrade scripts      #
-###########################################
-apk add \
-        bash \
-        glib \
-        jansson \
-        libarchive \
-        libevent \
-        mariadb-client-libs \
-        openssl \
-        postgresql-libs \
-        py-imaging \
-        py-pillow \
-        py-setuptools \
-        python \
-        sqlite \
-        util-linux \
 
 #################################################
 # Add build-deps for Seafile-Server             #

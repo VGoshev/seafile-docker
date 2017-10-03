@@ -15,9 +15,28 @@ MAINTAINER Vladimir Goshev <sunx@sunx.name>
 ENV SEAFILE_SERVER_DIR="/home/seafile" \
 	SEAFILE_VERSION="6.2.2"
 
-# All installation proccess is in build.sh
-# It is possible to do all work via RUN command(s)
-# But it looks much better with all work in script
+###########################################
+# Runtime dependencies for Seafile-Server #
+# bash is needed for upgrade scripts      #
+###########################################
+RUN apk add --update \
+        bash \
+        glib \
+        jansson \
+        libarchive \
+        libevent \
+        mariadb-client-libs \
+        openssl \
+        postgresql-libs \
+        py-imaging \
+        py-pillow \
+        py-setuptools \
+        python \
+        sqlite \
+        util-linux \
+ && rm -rf /var/cache/apk/*
+
+# Most of installation stuff is done in build.sh
 COPY build.sh /tmp/build.sh
 COPY seafile-server.patch /tmp/seafile-server.patch
 # Execute our build script and delete it because we won't need it anymore
