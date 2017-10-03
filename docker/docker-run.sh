@@ -89,12 +89,9 @@ fi
 	tar xzf /usr/local/share/seafile/seahub.tgz -C seafile-server/seahub
 
 #Seafile-server related enviroment variables
-CCNET_CONF_DIR=${HOME}/ccnet
-export CCNET_CONF_DIR
-SEAFILE_CONF_DIR=${HOME}/seafile-data
-export SEAFILE_CONF_DIR
-SEAFILE_CENTRAL_CONF_DIR=${HOME}/conf
-export SEAFILE_CENTRAL_CONF_DIR
+export CCNET_CONF_DIR=${HOME}/ccnet
+export SEAFILE_CONF_DIR=${HOME}/seafile-data
+export SEAFILE_CENTRAL_CONF_DIR=${HOME}/conf
 
 #We do not want to reset admin password. probably
 RESET_ADMIN=0
