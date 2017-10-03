@@ -43,7 +43,11 @@ PYTHON_PACKAGES_DIR=`python -c "from distutils.sysconfig import get_python_lib; 
 # Install libevhtp #
 ####################
 wget https://github.com/haiwen/libevhtp/archive/${LIBEVHTP_VERSION}.tar.gz -O- | tar xzf -
-cd libevhtp-${LIBEVHTP_VERSION}/ && cmake -DEVHTP_DISABLE_SSL=ON -DEVHTP_BUILD_SHARED=ON . && make && make install && cp oniguruma/onigposix.h /usr/include/
+cd libevhtp-${LIBEVHTP_VERSION}/
+cmake -DEVHTP_DISABLE_SSL=ON -DEVHTP_BUILD_SHARED=ON .
+make
+make install
+cp oniguruma/onigposix.h /usr/include/
 
 ###################################
 # Download all Seafile components #
@@ -61,7 +65,7 @@ wget https://github.com/haiwen/seafdav/archive/v${SEAFILE_VERSION}-server.tar.gz
 #  just copy it in proper directory #
 #####################################
 
-cd $WORK_DIR/seahub-${SEAFILE_VERSION}-server/ &&
+cd $WORK_DIR/seahub-${SEAFILE_VERSION}-server/
 echo "diff --git a/seahub/settings.py b/seahub/settings.py
 index 0b40098..a569b94 100644
 --- a/seahub/settings.py
@@ -75,7 +79,8 @@ index 0b40098..a569b94 100644
 
  # Compress static files(css, js)
  COMPRESS_URL = MEDIA_URL
-" | patch -p1 && pip install -r requirements.txt
+" | patch -p1
+pip install -r requirements.txt
 
 pip install gunicorn flup django-picklefield requests
 
@@ -84,18 +89,22 @@ tar czf /usr/local/share/seafile/seahub.tgz -C $WORK_DIR/seahub-${SEAFILE_VERSIO
 ###############################
 # Build and install libSeaRPC #
 ###############################
-cd $WORK_DIR/libsearpc-${LIBSEARPC_VERSION}/ && ./autogen.sh && ./configure && make && make install
+cd $WORK_DIR/libsearpc-${LIBSEARPC_VERSION}/
+./autogen.sh
+./configure
+make
+make install
 
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 
 ###########################
 # Build and install CCNET #
 ###########################
-cd $WORK_DIR/ccnet-server-${SEAFILE_VERSION}-server/ && \
-	./autogen.sh && \
-	./configure --with-mysql --with-postgresql --enable-python && \
-	make && make install
-
+cd $WORK_DIR/ccnet-server-${SEAFILE_VERSION}-server/
+./autogen.sh
+./configure --with-mysql --with-postgresql --enable-python
+make
+make install
 
 ####################################
 # Build and install Seafile-Server #
@@ -105,9 +114,10 @@ cd $WORK_DIR/ccnet-server-${SEAFILE_VERSION}-server/ && \
 ####################################
 cd $WORK_DIR/seafile-server-${SEAFILE_VERSION}-server/
 patch -p1 < /tmp/seafile-server.patch
-./autogen.sh && \
-	./configure --with-mysql --with-postgresql --enable-python && \
-	make && make install
+./autogen.sh
+./configure --with-mysql --with-postgresql --enable-python
+make
+make install
 
 #Copy some useful scripts to /usr/local/bin
 cp scripts/seaf-fsck.sh /usr/local/bin/seafile-fsck
