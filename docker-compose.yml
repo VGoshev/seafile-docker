@@ -17,7 +17,6 @@ services:
       # Start seahub in FastCGI mode
       SEAHUB: fastcgi
       SEAFILE_FASTCGI_HOST: 0.0.0.0
-      HANDLE_SIGNALS: 1
 #      DEBUG: 1
 
     container_name: seafile

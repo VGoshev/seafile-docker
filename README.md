@@ -71,8 +71,6 @@ When you running container, you can pass several environment variables (with `--
   <dd>If Seahub should be started in FastCGI mode (set it "fastcgi" for FastCGI mode or leave empty otherwise). Default: <code>empty</code> (not FastCGI mode).</dd>
   <dt><code>SEAFILE_FASTCGI_HOST=<IP></code></dt>
   <dd>Binding IP for Seahub in FastCGI mode. Default: <code>127.0.0.1</code></dd>
-  <dt><code>HANDLE_SIGNALS=<0|1></code></dt>
-  <dd>If container should properly handle signals like SIGHUP and SIGTERM (SIGTERM is sending on <code>docker stop</code> command, for example). If signals handling is turned on, then script will run infinity cycle for waiting signal, what, in theory, could slightly increase CPU consumption by container. Default: <code>1</code> (i.e. Turned on)</dd>
 </dl>
 
 ## Useful commands in container

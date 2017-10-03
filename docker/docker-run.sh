@@ -47,7 +47,7 @@ start_seafile_server() {
 }
 
 stop_seafile() {
-	echo "SIGTERM or similar received, stopping Seafile..."
+	echo "Stopping Seafile..."
 	cd ${HOME}
 	seafile-admin stop
 	# We need to wait a bit to make sure that
@@ -234,9 +234,6 @@ fi
 echo "Starting seafile server..."
 start_seafile_server
 
-trap stop_seafile INT TERM PWR
-trap hup_seafile HUP
-
 if [ $RESET_ADMIN -eq 1 ]; then
 	# Create admin user only in interactive mode. Just becouse.
 	if [ $INTERACTIVE -eq 1 ]; then
@@ -250,14 +247,9 @@ if [ $RESET_ADMIN -eq 1 ]; then
 	echo ""
 fi
 
-if [ "x$HANDLE_SIGNALS" != "x1" ]; then
-	exec tail -f logs/* seafile-server/runtime/*.log
-else
-	#We can't run exec or our signal-handling functions will not work =(
-	tail -f logs/* seafile-server/runtime/*.log &
-	#Also we'll need to run infinity cycle I'm not sure if it's really is good idea
-	# But I have no more ides how to do it
-	while true; do
-		sleep 1
-	done
-fi
+tail -f logs/* seafile-server/runtime/*.log &
+
+trap stop_seafile INT QUIT ABRT ALRM TERM TSTP
+trap hup_seafile HUP
+
+wait
