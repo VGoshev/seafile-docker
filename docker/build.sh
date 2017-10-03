@@ -7,11 +7,9 @@ set -e
 # Fix little bug in alpine image
 ln -s /etc/profile.d/color_prompt /etc/profile.d/color_prompt.sh
 
-###################################################
-# We'll need binaries from different paths,       #
-#  so we should be sure, all bin dir in the PATH  #
-###################################################
-PATH="${PATH}:/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
+# Make sure, that /usr/local/bin is in PATH
+# The PATH-variable depends on the host's setting. /usr/local/bin may not be included in every distro
+export PATH="${PATH}:/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
 
 ######################################
 # Get Seafile Version from first arg #

@@ -9,11 +9,9 @@ VERSION_FILE=".seafile_version"
 #Be sure, that python path variable is loaded
 source /etc/profile.d/python-local.sh   
 
-# Make sure, that /usr/local/bin is in PATH 
-# (it shoul be there and without it, 
-#  but I want to be sure, because of 
-#  all seafile utilites are in /usr/local/bin)
-PATH=${PATH}:/usr/local/bin
+# Make sure, that /usr/local/bin is in PATH
+# The PATH-variable depends on the host's setting. /usr/local/bin may not be included in every distro
+export PATH="${PATH}:/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
 
 SEAFILE_VERSION=`cat /var/lib/seafile/version`
 if [ -z "$SEAFILE_VERSION" ]; then
