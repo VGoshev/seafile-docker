@@ -8,10 +8,10 @@ MAINTAINER Vladimir Goshev <sunx@sunx.name>
 #
 # SEAFILE_VERSION:
 # Seafile-Server version do townload and install
-#  See https://github.com/haiwen/seafile-server/releases 
+#  See https://github.com/haiwen/seafile-server/releases
 #  for latest avaliable version
-# uUID - set UID of seafile user, default: 2016
-# uGID - set GID of seafile user, default: 2016
+# uUID - set UID of Seafile user, default: 2016
+# uGID - set GID of Seafile user, default: 2016
 ENV SEAFILE_SERVER_DIR="/home/seafile" \
 	SEAFILE_VERSION="6.2.2"
 
@@ -31,6 +31,6 @@ VOLUME $SEAFILE_SERVER_DIR
 
 USER seafile
 
-# Container will run /bin/docker-run with seafile user access 
+# Container will run /bin/docker-run with Seafile user access
 # to configure (if needed) and run Seafile server
 CMD ["/bin/docker-run"]
