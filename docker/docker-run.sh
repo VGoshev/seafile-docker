@@ -63,9 +63,11 @@ if [ ! -d 'seafile-server' ]; then
 	#If we wasn't able to create directory then,
 	#  probably permissions for $HOME are wrong
 	if [ $RES -ne 0 ]; then
-		echo "ERROR: Can't create directory $HOME/seafile, probably bad permisiions"
-		echo "To fix permissions, you can run:"
-		echo "docker run --rm -v <mount_point>:$HOME --user=0 <image> chown seafile:seafile $HOME"
+		cat >&2 <<-EOM
+			ERROR: Can't create directory $HOME/seafile, probably bad permissions
+			To fix permissions, you can run:
+			docker run --rm -v <mount_point>:$HOME --user=0 <image> chown seafile:seafile $HOME
+		EOM
 		exit 1
 	fi
 fi
@@ -136,15 +138,18 @@ if [ ! -f $VERSION_FILE ]; then
 	#Make Gunicorn config
 	if [ ! -f 'seafile-server/runtime/seahub.conf' ]; then
 		mkdir "${HOME}/seafile-server/runtime"
-		echo "import os
-daemon = True
-workers = 3
 
-# Logging
-runtime_dir = os.path.dirname(__file__)
-pidfile = os.path.join(runtime_dir, 'seahub.pid')
-errorlog = os.path.join(runtime_dir, 'error.log')
-accesslog = os.path.join(runtime_dir, 'access.log')" > "${HOME}/seafile-server/runtime/seahub.conf"
+		cat >> "${HOME}/seafile-server/runtime/seahub.conf" <<- EOF
+			import os
+			daemon = True
+			workers = 3
+
+			# Logging
+			runtime_dir = os.path.dirname(__file__)
+			pidfile = os.path.join(runtime_dir, 'seahub.pid')
+			errorlog = os.path.join(runtime_dir, 'error.log')
+			accesslog = os.path.join(runtime_dir, 'access.log')
+		EOF
 
 		echo '* gunicorn configured successfully'
 	fi
@@ -163,9 +168,11 @@ else
 	if [ "x$OLD_VER" != "x$SEAFILE_VERSION" ]; then
 		echo "Version is different. Stored version is $OLD_VER, Current version is $SEAFILE_VERSION"
 		if [ -f '.no-update' ]; then
-			echo ".no-update file found, skipping update"
-			echo "You should update user data manually (or delete file .no-update)"
-			echo "  do not forget to update seafile version in $VERSION_FILE manually after update"
+			cat >&2 <<-EOM
+				.no-update file found, skipping update.
+				You should update user data manually (or delete file .no-update).
+				Do not forget to update seafile version in $VERSION_FILE manually after update.
+			EOM
 		else
 			echo "No .no-update file found, performing update..."
 
@@ -233,9 +240,10 @@ if [ $RESET_ADMIN -eq 1 ]; then
 		echo "Creating administrator user:"
 		python seafile-server/seahub/manage.py createsuperuser
 	else
-		echo "To create administrator user, execute"
-		echo "  python seafile-server/seahub/manage.py createsuperuser"
-		echo " in container."
+		cat >&2 <<-EOM
+			To create administrator user, execute in container:
+			python seafile-server/seahub/manage.py createsuperuser
+		EOM
 	fi
 	echo ""
 fi

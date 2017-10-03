@@ -56,7 +56,8 @@ wget https://github.com/haiwen/seafdav/archive/v${SEAFILE_VERSION}-server.tar.gz
 #####################################
 
 cd $WORK_DIR/seahub-${SEAFILE_VERSION}-server/
-echo "diff --git a/seahub/settings.py b/seahub/settings.py
+patch -p1 <<-EOP
+diff --git a/seahub/settings.py b/seahub/settings.py
 index 0b40098..a569b94 100644
 --- a/seahub/settings.py
 +++ b/seahub/settings.py
@@ -69,7 +70,7 @@ index 0b40098..a569b94 100644
 
  # Compress static files(css, js)
  COMPRESS_URL = MEDIA_URL
-" | patch -p1
+EOP
 pip install -r requirements.txt
 
 pip install gunicorn flup django-picklefield requests
