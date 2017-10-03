@@ -66,7 +66,7 @@ RUN apk add --update --virtual .build_dep \
         util-linux-dev \
         vala \
 # Run the buildscript and remove builddep packages again
- && /tmp/build.sh "$SEAFILE_VERSION" "$SEAFILE_SERVER_DIR" \
+ && /tmp/build.sh \
  && apk del --purge .build_dep
 
 # Container initialization scripts ()

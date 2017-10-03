@@ -11,24 +11,8 @@ ln -s /etc/profile.d/color_prompt /etc/profile.d/color_prompt.sh
 # The PATH-variable depends on the host's setting. /usr/local/bin may not be included in every distro
 export PATH="${PATH}:/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
 
-######################################
-# Get Seafile Version from first arg #
-#  (or use 6.0.5 as default)         #
-######################################
-SEAFILE_VERSION="6.0.10"
-if [ "x$1" != "x" ]; then
-    SEAFILE_VERSION=$1
-fi
-
 [ -z $LIBEVHTP_VERSION  ] && LIBEVHTP_VERSION="18c649203f009ef1d77d6f8301eba09af3777adf"
 [ -z $LIBSEARPC_VERSION ] && LIBSEARPC_VERSION="3.1-latest"
-##################################
-# Where we should install Seahub #
-##################################
-SEAFILE_SERVER_DIR="/home/seafile"
-if [ "x$2" != "x" ]; then
-    SEAFILE_SERVER_DIR=$2
-fi
 
 ##########################################
 # Use latest, buggy things in our image. #
