@@ -70,13 +70,11 @@ RUN apk add --update --virtual .build_dep \
  && apk del --purge .build_dep
 
 # Container initialization scripts ()
-COPY docker-run.sh /bin/docker-run
+COPY docker-run.sh /usr/local/bin/docker-run
 
 EXPOSE 8000 8082
 VOLUME $SEAFILE_SERVER_DIR
 
 USER seafile
 
-# Container will run /bin/docker-run with Seafile user access
-# to configure (if needed) and run Seafile server
-CMD ["/bin/docker-run"]
+CMD ["/usr/local/bin/docker-run"]
