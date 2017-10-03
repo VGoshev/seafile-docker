@@ -58,13 +58,22 @@ configurations in official Seafile Server [Manual](https://manual.seafile.com/).
 
 ### Supported ENV variables
 
-When you running container, you can pass several environment variables (with **--env** option of **docker run** command):
-* **`INTERACTIVE`**=\<0|1> - if container should ask you about some configuration values (on first run) and about upgrades. Default: 1
-* **`SERVER_NAME`**=\<...> - Name of Seafile server (3 - 15 letters or digits), used only for first run in non-interactive mode. Default: Seafile
-* **`SERVER_DOMAIN`**=\<...> - Domain or IP of seafile server, used only for first run in non-interactive mode. Default: seafile.domain.com
-* **`SEAHUB`**=\<fastcgi> - If Seahub should be started in FastCGI mode (set it "fastcgi" for FastCGI mode or leave empty otherwise). Default: empty (not FastCGI mode).
-* **`SEAFILE_FASTCGI_HOST`**=\<IP> - Binding IP for Seahub in FastCGI mode. Default: 127.0.0.1.
-* **`HANDLE_SIGNALS`**=\<0|1> - If container should properly handle signals like SIGHUP and SIGTERM (SIGTERM is sending on `docker stop` command, for example). If signals handling is turned on, then script will run infinity cycle for waiting signal, what, in theory, could slightly increase CPU consumption by container. Default: 1 (i.e. Turned on).
+When you running container, you can pass several environment variables (with `--env` option of `docker run` command):
+
+<dl>
+  <dt><code>INTERACTIVE=<0|1></code></dt>
+  <dd>if container should ask you about some configuration values (on first run) and about upgrades. Default: <code>1</code></dd>
+  <dt><code>SERVER_NAME=<name></code></dt>
+  <dd>Name of Seafile server (3 - 15 letters or digits), used only for first run in non-interactive mode. Default: <code>Seafile</code></dd>
+  <dt><code>SERVER_DOMAIN=<domain|IP></code></dt>
+  <dd>Domain or IP of seafile server, used only for first run in non-interactive mode. Default: <code>seafile.domain.com</code></dd>
+  <dt><code>SEAHUB</code></dt>
+  <dd>If Seahub should be started in FastCGI mode (set it "fastcgi" for FastCGI mode or leave empty otherwise). Default: <code>empty</code> (not FastCGI mode).</dd>
+  <dt><code>SEAFILE_FASTCGI_HOST=<IP></code></dt>
+  <dd>Binding IP for Seahub in FastCGI mode. Default: <code>127.0.0.1</code></dd>
+  <dt><code>HANDLE_SIGNALS=<0|1></code></dt>
+  <dd>If container should properly handle signals like SIGHUP and SIGTERM (SIGTERM is sending on <code>docker stop</code> command, for example). If signals handling is turned on, then script will run infinity cycle for waiting signal, what, in theory, could slightly increase CPU consumption by container. Default: <code>1</code> (i.e. Turned on)</dd>
+</dl>
 
 ## Useful commands in container
 
