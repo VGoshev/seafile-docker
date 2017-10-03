@@ -54,37 +54,6 @@ cd $WORK_DIR
 [ -z "$uUID" ] && uUID=2016
 [ -z "$uGID" ] && uGID=2016
 
-
-
-#################################################
-# Add build-deps for Seafile-Server             #
-#################################################
-apk add --virtual .build_dep \
-        autoconf \
-        automake \
-        bsd-compat-headers \
-        cmake \
-        curl-dev \
-        file \
-        fuse-dev \
-        g++ \
-        gcc \
-        git \
-        glib-dev \
-        intltool \
-        jansson-dev \
-        libarchive-dev \
-        libevent-dev \
-        libtool \
-        make \
-        mariadb-dev \
-        musl-dev \
-        py-pip \
-        python-dev \
-        sqlite-dev \
-        util-linux-dev \
-        vala \
-
 PYTHON_PACKAGES_DIR=`python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`
 
 ####################
@@ -214,7 +183,6 @@ echo "Seafile user has been created and configured successfully!"
 # Delete all unneeded files and packages #
 ##########################################
 cd /
-apk del --purge .build_dep
 rm -rf $WORK_DIR
 rm /var/cache/apk/*
 rm -rf /root/.cache

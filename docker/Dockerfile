@@ -39,8 +39,35 @@ RUN apk add --update \
 # Most of installation stuff is done in build.sh
 COPY build.sh /tmp/build.sh
 COPY seafile-server.patch /tmp/seafile-server.patch
-# Execute our build script and delete it because we won't need it anymore
-RUN /tmp/build.sh "$SEAFILE_VERSION" "$SEAFILE_SERVER_DIR" && rm /tmp/build.sh
+# Add build-deps for Seafile-Server
+RUN apk add --update --virtual .build_dep \
+        autoconf \
+        automake \
+        bsd-compat-headers \
+        cmake \
+        curl-dev \
+        file \
+        fuse-dev \
+        g++ \
+        gcc \
+        git \
+        glib-dev \
+        intltool \
+        jansson-dev \
+        libarchive-dev \
+        libevent-dev \
+        libtool \
+        make \
+        mariadb-dev \
+        musl-dev \
+        py-pip \
+        python-dev \
+        sqlite-dev \
+        util-linux-dev \
+        vala \
+# Run the buildscript and remove builddep packages again
+ && /tmp/build.sh "$SEAFILE_VERSION" "$SEAFILE_SERVER_DIR" \
+ && apk del --purge .build_dep
 
 # Container initialization scripts ()
 COPY docker-run.sh /bin/docker-run
