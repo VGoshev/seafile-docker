@@ -35,7 +35,7 @@ fi
 
 ##########################################
 # Use latest, buggy things in our image. #
-# Like seahub via symlink.               #
+# Like Seahub via symlink.               #
 ##########################################
 EDGE_V=0
 if [ "x$3" = "x1" ]; then
@@ -51,7 +51,7 @@ mkdir -p $WORK_DIR
 cd $WORK_DIR
 
 ################################
-# UID and GID for seafile user #
+# UID and GID for Seafile user #
 ################################
 [ -z "$uUID" ] && uUID=2016
 [ -z "$uGID" ] && uGID=2016
@@ -143,21 +143,21 @@ export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 ###########################
 cd $WORK_DIR/ccnet-server-${SEAFILE_VERSION}-server/ && \
 	./autogen.sh && \
-    ./configure --with-mysql --with-postgresql --enable-python && \
-		make && make install
+	./configure --with-mysql --with-postgresql --enable-python && \
+	make && make install
 
 
 ####################################
 # Build and install Seafile-Server #
 # As a First step we need to patch #
-# seafile-controller topdir        #
+# Seafile-controller topdir        #
 # And some scripts                 #
 ####################################
 cd $WORK_DIR/seafile-server-${SEAFILE_VERSION}-server/
 patch -p1 < /tmp/seafile-server.patch
 ./autogen.sh && \
-    ./configure --with-mysql --with-postgresql --enable-python && \
-		make && make install
+	./configure --with-mysql --with-postgresql --enable-python && \
+	make && make install
 
 #Copy some useful scripts to /usr/local/bin
 #mkdir -p /usr/local/bin
@@ -187,26 +187,26 @@ echo "Seafile-Server has been built successfully!"
 
 ##############################
 # Do some preparations       #
-# Like add seafile user and  #
+# Like add Seafile user and  #
 #  create his home directory #
 ##############################
 
 addgroup -g "$uGID" seafile
 adduser -D -s /bin/sh -g "Seafile Server" -G seafile -h "$SEAFILE_SERVER_DIR" -u "$uUID" seafile
 
-# Create seafile-server dir 
+# Create Seafile-server dir 
 su - -c "mkdir ${SEAFILE_SERVER_DIR}/seafile-server" seafile
 
-# Store seafile version and if tis is edge image
+# Store Seafile version and if tis is edge image
 mkdir -p /var/lib/seafile
 echo -n "$SEAFILE_VERSION" > /var/lib/seafile/version
 echo -n "$EDGE_V" > /var/lib/seafile/edge
 
-echo "seafile user has been created and configured successfully!"
+echo "Seafile user has been created and configured successfully!"
 
-#########################################
-# Delete all unneded files and packages #
-#########################################
+##########################################
+# Delete all unneeded files and packages #
+##########################################
 cd /
 apk del --purge .build_dep
 rm -rf $WORK_DIR
@@ -214,7 +214,7 @@ rm /var/cache/apk/*
 rm -rf /root/.cache
 rm -f /tmp/seafile-server.patch
 
-echo "unneded files were cleaned"
+echo "Unneeded files were cleaned"
 
 echo "Done!"
 
