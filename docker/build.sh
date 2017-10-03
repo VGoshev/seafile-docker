@@ -14,16 +14,6 @@ export PATH="${PATH}:/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbi
 [ -z $LIBEVHTP_VERSION  ] && LIBEVHTP_VERSION="18c649203f009ef1d77d6f8301eba09af3777adf"
 [ -z $LIBSEARPC_VERSION ] && LIBSEARPC_VERSION="3.1-latest"
 
-##########################################
-# Use latest, buggy things in our image. #
-# Like Seahub via symlink.               #
-##########################################
-EDGE_V=0
-if [ "x$3" = "x1" ]; then
-    EDGE_V=1
-fi
-
-
 ################################################################
 # We'll do all the work here. And delete whole directory after #
 ################################################################
@@ -155,10 +145,9 @@ adduser -D -s /bin/sh -g "Seafile Server" -G seafile -h "$SEAFILE_SERVER_DIR" -u
 # Create Seafile-server dir 
 su - -c "mkdir ${SEAFILE_SERVER_DIR}/seafile-server" seafile
 
-# Store Seafile version and if tis is edge image
+# Store Seafile version
 mkdir -p /var/lib/seafile
 echo -n "$SEAFILE_VERSION" > /var/lib/seafile/version
-echo -n "$EDGE_V" > /var/lib/seafile/edge
 
 echo "Seafile user has been created and configured successfully!"
 

@@ -19,13 +19,6 @@ if [ -z "$SEAFILE_VERSION" ]; then
 	exit 1
 fi
 
-EDGE_V=`cat /var/lib/seafile/edge`
-if [ "x$EDGE_V" = "x1" ]; then
-	EDGE_V=1
-else
-	EDGE_V=0
-fi
-
 # If it is interactive run or not, by default - yes.
 # It will affect configuration and update stages
 [ -z "$INTERACTIVE" ] && INTERACTIVE=1
