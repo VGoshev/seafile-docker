@@ -15,9 +15,9 @@ services:
 
     environment:
       # Start seahub in FastCGI mode
-      SEAHUB: fastcgi
-      SEAFILE_FASTCGI_HOST: 0.0.0.0
-#      DEBUG: 1
+      - SEAHUB=fastcgi
+      - SEAFILE_FASTCGI_HOST=0.0.0.0
+#     - DEBUG=1
 
     container_name: seafile
 #    domainname: seafile.domain.com
