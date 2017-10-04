@@ -65,6 +65,7 @@ RUN apk add --update --virtual .build_dep \
         sqlite-dev \
         util-linux-dev \
         vala \
+        wget \
 # Run the buildscript and remove builddep packages again
  && /tmp/build.sh \
  && apk del --purge .build_dep
