@@ -5,7 +5,7 @@ Also in my [Github repository](https://github.com/VGoshev/seafile-docker) you ca
 
 ## Supported tags and respective `Dockerfile` links
 
-* [`6.2.2`](https://github.com/VGoshev/seafile-docker/blob/6.2.2/docker/Dockerfile), [`latest`](https://github.com/VGoshev/seafile-docker/blob/master/docker/Dockerfile) - Seafile Server v6.2.2 - latest available version
+* [`6.2.5`](https://github.com/VGoshev/seafile-docker/blob/6.2.2/docker/Dockerfile), [`latest`](https://github.com/VGoshev/seafile-docker/blob/master/docker/Dockerfile) - Seafile Server v6.2.5 - latest available version
 
 Dockerfiles for older versions of Seafile Server you can find [there](https://github.com/VGoshev/seafile-docker/tags).
 
