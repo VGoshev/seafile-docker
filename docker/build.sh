@@ -121,7 +121,8 @@ index 0b40098..a569b94 100644
  COMPRESS_URL = MEDIA_URL
 " | patch -p1 && pip install -r requirements.txt
 
-pip install gunicorn flup django-picklefield requests
+pip install gunicorn django-picklefield requests \
+    flup==1.0.3.dev-20110405
 #   django_compressor django-post_office \
 #   django==1.8 pytz django-statici18n djangorestframework \
 #   chardet python-dateutil six openpyxl
