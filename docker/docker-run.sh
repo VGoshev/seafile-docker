@@ -28,6 +28,9 @@ else
 	EDGE_V=0
 fi
 
+# Delete old pid files
+rm "${HOME}/pids/*"
+
 # If it is interactive run or not, by default - yes.
 # It will affect configuration and update stages
 [ -z "$INTERACTIVE" ] && INTERACTIVE=1
