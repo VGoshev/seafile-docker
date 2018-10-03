@@ -226,6 +226,11 @@ else #[ ! -f $VERSION_FILE ];
 						echo | $SCRIPT
 					fi
 
+					if [ "$i1" = "6" -a "$i2" = "3" ]; then 
+						cd ./seafile-server/seahub && ./manage.py migrate_file_comment
+						cd $HOME
+					fi
+
 					i1p=$i1
 					i2p=$i2
 					i2=`expr "$i2" '+' 1`

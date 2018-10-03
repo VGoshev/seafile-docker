@@ -67,7 +67,8 @@ apk update
 ###########################################
 apk add bash openssl python py-setuptools py-imaging sqlite \
     libevent util-linux glib jansson libarchive \
-		mariadb-client-libs postgresql-libs py-pillow
+		mariadb-connector-c postgresql-libs py-pillow \
+        libxml2 libxslt
 
 #################################################
 # Add build-deps for Seafile-Server             #
@@ -76,7 +77,8 @@ apk add --virtual .build_dep \
     curl-dev libevent-dev glib-dev util-linux-dev intltool \
     sqlite-dev libarchive-dev libtool jansson-dev vala fuse-dev \
     cmake make musl-dev gcc g++ automake autoconf bsd-compat-headers \
-    python-dev file mariadb-dev mariadb-dev py-pip git
+    python-dev file mariadb-dev mariadb-dev py-pip git \
+    mariadb-connector-c-dev libxml2-dev libxslt-dev
 
 
 PYTHON_PACKAGES_DIR=`python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`
@@ -110,19 +112,20 @@ echo "diff --git a/seahub/settings.py b/seahub/settings.py
 index 0b40098..a569b94 100644
 --- a/seahub/settings.py
 +++ b/seahub/settings.py
-@@ -472,7 +472,7 @@ SESSION_COOKIE_AGE = 24 * 60 * 60
+@@ -600,7 +600,7 @@
  # Days of remembered login info (deafult: 7 days)
  LOGIN_REMEMBER_DAYS = 7
 
--SEAFILE_VERSION = '6.2.0'
+-SEAFILE_VERSION = '6.3.3'
 +SEAFILE_VERSION = '${SEAFILE_VERSION}'
 
  # Compress static files(css, js)
- COMPRESS_URL = MEDIA_URL
-" | patch -p1 && pip install -r requirements.txt
+ COMPRESS_ENABLED = False
+" | patch -p1 && pip install -r requirements.txt || exit 1
 
 pip install gunicorn django-picklefield requests \
-    flup==1.0.3.dev-20110405
+    flup==1.0.3.dev-20110405 \
+    django==1.8
 #   django_compressor django-post_office \
 #   django==1.8 pytz django-statici18n djangorestframework \
 #   chardet python-dateutil six openpyxl
