@@ -68,7 +68,7 @@ apk update
 apk add bash openssl python py-setuptools py-imaging sqlite \
     libevent util-linux glib jansson libarchive \
 		mariadb-connector-c postgresql-libs py-pillow \
-        libxml2 libxslt
+        libxml2 libxslt su-exec shadow
 
 #################################################
 # Add build-deps for Seafile-Server             #

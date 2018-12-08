@@ -1,0 +1,20 @@
+#!/bin/sh
+
+setids() {
+    PUID=${PUID:-2016}
+    PGID=${PGID:-2016}
+    groupmod -o -g "$PGID" seafile
+    usermod -o -u "$PUID" seafile
+	id seafile
+
+	if ["`stat -c '%U' /home/seafile`" != "seafile" ]; then
+		chown -Rc seafile:seafile /home/seafile
+	fi
+}
+
+#Do debug output in case of debug
+[ "x$DEBUG" = "x1" ] && set -x
+
+setids
+
+su-exec seafile /bin/docker-run
