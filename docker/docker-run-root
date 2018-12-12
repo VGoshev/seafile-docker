@@ -7,7 +7,7 @@ setids() {
     usermod -o -u "$PUID" seafile
 	id seafile
 
-	if ["`stat -c '%U' /home/seafile`" != "seafile" ]; then
+	if [ "`stat -c '%U' /home/seafile`" != "seafile" ]; then
 		chown -Rc seafile:seafile /home/seafile
 	fi
 }
