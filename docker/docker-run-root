@@ -17,4 +17,4 @@ setids() {
 
 setids
 
-su-exec seafile /bin/docker-run
+exec su-exec seafile /bin/docker-run

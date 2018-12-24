@@ -123,15 +123,6 @@ index 0b40098..a569b94 100644
  COMPRESS_ENABLED = False
 " | patch -p1 && pip install -r requirements.txt || exit 1
 
-pip install gunicorn django-picklefield requests \
-    flup==1.0.3.dev-20110405 \
-    django==1.8
-#   django_compressor django-post_office \
-#   django==1.8 pytz django-statici18n djangorestframework \
-#   chardet python-dateutil six openpyxl
-#pip install https://github.com/haiwen/django-constance/archive/bde7f7c.zip
-#pip install https://github.com/haiwen/django-constance/archive/6b04a31.zip
-
 #mv $WORK_DIR/seahub-${SEAFILE_VERSION}-server/ /usr/local/share/seahub
 mkdir -p /usr/local/share/seafile
 tar czf /usr/local/share/seafile/seahub.tgz -C $WORK_DIR/seahub-${SEAFILE_VERSION}-server/ ./
@@ -158,6 +149,26 @@ cd $WORK_DIR/ccnet-server-${SEAFILE_VERSION}-server/ && \
 # And some scripts                 #
 ####################################
 cd $WORK_DIR/seafile-server-${SEAFILE_VERSION}-server/
+
+echo "diff --git a/tools/seafile-admin b/tools/seafile-admin
+index 5e3658b..6cfeafd 100755
+--- a/tools/seafile-admin
++++ b/tools/seafile-admin
+@@ -518,10 +518,10 @@ def init_seahub():
+
+
+ def check_django_version():
+-    '''Requires django 1.8'''
++    '''Requires django >= 1.8'''
+     import django
+-    if django.VERSION[0] != 1 or django.VERSION[1] != 8:
+-        error('Django 1.8 is required')
++    if django.VERSION[0] != 1 or django.VERSION[1] < 8:
++        error('Django 1.8+ is required')
+     del django
+
+" | patch -p1
+
 patch -p1 < /tmp/seafile-server.patch
 ./autogen.sh && \
     ./configure --with-mysql --with-postgresql --enable-python && \

@@ -63,9 +63,10 @@ When you running container, you can pass several enviroment variables (with **--
 * **`INTERACTIVE`**=\<0|1> - if container should ask you about some configuration values (on first run) and about upgrades. Default: 1
 * **`SERVER_NAME`**=\<...> - Name of Seafile server (3 - 15 letters or digits), used only for first run in non-interactive mode. Default: Seafile
 * **`SERVER_DOMAIN`**=\<...> - Domain or ip of seafile server, used only for first run in non-interactive mode. Default: seafile.domain.com
-* **`SEAHUB`**=\<fastcgi> - If seahub should be started in FastCGI mode (set it "fastcgi" for FastCGI mode or leave empty otherwise). Default: empty (not FastCGI mode).
-* **`SEAFILE_FASTCGI_HOST`**=\<ip> - Binding ip for seahub in FastCGI mode. Default: 127.0.0.1.
 * **`HANDLE_SIGNALS`**=\<0|1> - If container should properly handle signals like SIGHUP and SIGTERM (SIGTERM is sending on `docker stop` command, for example). If signals handling is turned on, then script will run infinity cycle for waiting signal, what, in theory, could slightly increase CPU consumption by container. Default: 1 (i.e. Turned on).
+* **`SEAHUB`**=\<fastcgi> - If seahub should be started in FastCGI mode (set it "fastcgi" for FastCGI mode or leave empty otherwise). Default: empty (not FastCGI mode). **Attention**: FastCGI mode of SeaHub is deprecated and will be deleted from futher version of Seafile.
+* **`SEAFILE_FASTCGI_HOST`**=\<ip> - Binding ip for seahub in FastCGI mode. Default: 127.0.0.1.
+
 
 ## Useful commands in container
 
@@ -80,20 +81,20 @@ When you're inside of container, in home directory of seafile user, you can use 
 
 ## Tips&amp;Tricks and Known issues
 
-* Make sure, that mounted data volume and files are radable and writable by container's seafile user(2016:2016).
+* Make sure, that mounted data volume and files are radable and writable by container's seafile user(Default: 2016:2016).
 
 * If you want to run seafdav, which is disabled by default, you can read it's [manual](https://manual.seafile.com/extension/webdav.html). Do not forget to publish port 8080 after it.
 
 * If you do not want container to automatically upgrade your Seafile enviroment on image (and Seafile-server) update, 
 you can add empty file named `.no-update` to directory `/home/seafile` in your container. You can use **`docker exec <container_name> touch /home/seafile/.no-update`** for it.
 
-* Container uses seafile user to run seafile, so if you need to do something with root access in container, you can use **`docker exec -ti --user=0 <container_name> /bin/sh`** for it.
+* Container uses seafile user to run seafile, so if you need to do something with seafile data in container, you can use **`docker exec -ti --user=seafile <container_name> /bin/sh`** for it.
 
 * On first run (end every image upgrade) container will copy seahub directory from `/usr/local/share/seahub` to `/home/seafile/seafile-server/seahub `(i.e. to the volume), so it cost about 40Mb of space. I'm not sure if it could be changed without using webserver inside of container (But 40Mb of space isn't to much in our days, I think).
 
 * At this moment most seafile scripts (which are located in `/usr/local/share/seafile/scripts` directory) aren't working properly, but I do not think that they are to usefull for this image (scripts `seaf-fsck.sh` and `seaf-gc.sh` are working correctly and also avaliable as `/usr/local/bin/seafile-fsck` and `/usr/local/bin/seafile-gc`).
 
-* This image confugure sqlite-based Seafile server installation. If you want to run Seafile server witn MySQL\MariaDB, then you can configure it manually, or say to me about it and I'll add such configuration option.
+* This image confugure sqlite-based Seafile server installation. If you want to run Seafile server witn MySQL\MariaDB, then you can configure it manually, or you ca say to me about it and I'll try add such configuration option.
 
 ## License
 
