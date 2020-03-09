@@ -65,7 +65,7 @@ apk update
 # Runtime dependencies for Seafile-Server #
 # bash is needed for upgrade scripts      #
 ###########################################
-apk add bash openssl python py-setuptools py-imaging sqlite \
+apk add bash openssl python py-setuptools py2-pillow sqlite \
     libevent util-linux glib jansson libarchive \
 		mariadb-connector-c postgresql-libs py-pillow \
         libxml2 libxslt su-exec shadow
@@ -79,6 +79,7 @@ apk add --virtual .build_dep \
     cmake make musl-dev gcc g++ automake autoconf bsd-compat-headers \
     python-dev file mariadb-dev mariadb-dev py-pip git \
     mariadb-connector-c-dev libxml2-dev libxslt-dev
+
 
 
 PYTHON_PACKAGES_DIR=`python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`
@@ -122,6 +123,8 @@ index 0b40098..a569b94 100644
  # Compress static files(css, js)
  COMPRESS_ENABLED = False
 " | patch -p1 && pip install -r requirements.txt || exit 1
+
+pip install jsonfield==2.0.2
 
 #mv $WORK_DIR/seahub-${SEAFILE_VERSION}-server/ /usr/local/share/seahub
 mkdir -p /usr/local/share/seafile
