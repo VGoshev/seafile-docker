@@ -13,11 +13,12 @@ Dockerfiles for older versions of Seafile Server you can find [there](https://gi
 
 To run container you can use following command:
 ```bash
-docker run \  
-  -v /home/docker/seafile:/home/seafile \  
-  -p 127.0.0.1:8000:8000 \  
-  -p 127.0.0.1:8082:8082 \  
-  -ti sunx/seafile`
+docker run \
+  -v /home/docker/seafile:/home/seafile \
+  -p 127.0.0.1:8000:8000 \
+  -p 127.0.0.1:8082:8082 \
+  --name seafile \
+  -ti sunx/seafile
 ```
 Containers, based on this image will automatically configure 
  Seafile enviroment if there isn't any. If Seafile enviroment is from previous version of Seafile, container will automatically upgrade it to latest version (by calling Seafile upgrade scripts).

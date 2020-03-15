@@ -154,7 +154,7 @@ if [ ! -f $VERSION_FILE ]; then
 
 	# Do syncdb anyway, because it willn't corrupt old databse
 	#if [ ! -f 'seahub.db' ]; then
-	python seafile-server/seahub/manage.py syncdb || exit 5
+	python seafile-server/seahub/manage.py migrate || exit 5
 	echo
 	echo '* seahub database synchronized successfully'
 	#fi
